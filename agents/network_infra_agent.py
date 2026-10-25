@@ -72,6 +72,16 @@ class NetworkInfraAgent(BaseAgent):
                             f"Send GET request to {base_url}",
                             "Inspect response headers to verify absence of CSP, X-Frame-Options, or X-Content-Type-Options"
                         ],
+                        kali_manual_verification=f"""# Step 1: In Kali Linux Terminal, fetch HTTP response headers:
+curl -s -I '{base_url}'
+
+# Step 2: Check for absence of required defense headers:
+# - Content-Security-Policy
+# - X-Frame-Options
+# - X-Content-Type-Options
+
+# Step 3: Verify with curl grep:
+curl -s -I '{base_url}' | grep -iE 'content-security-policy|x-frame-options|x-content-type-options'""",
                         evidence=evidence,
                         remediation_advice="Configure reverse proxy or web application middleware to return defensive security headers.",
                         remediation_code_sample="""# Secure Nginx Configuration:
@@ -121,6 +131,16 @@ add_header Content-Security-Policy "default-src 'self';" always;""",
                             f"Issue request with header 'Origin: {test_origin}'",
                             "Verify reflection in Access-Control-Allow-Origin response header"
                         ],
+                        kali_manual_verification=f"""# Step 1: In Kali Linux Terminal, send cross-origin preflight request:
+curl -v -s -I -X GET '{base_url}' \\
+  -H "Origin: {test_origin}"
+
+# Step 2: Check returned headers for permissive wildcard reflection:
+# Access-Control-Allow-Origin: {test_origin} (or *)
+# Access-Control-Allow-Credentials: true
+
+# Step 3: Confirm browser exploitation via curl test:
+curl -s -i -X GET '{base_url}' -H "Origin: {test_origin}" | grep -i 'access-control-allow'""",
                         evidence=evidence,
                         remediation_advice="Enforce a strict server-side whitelist of trusted domains and avoid echoing arbitrary Origin headers.",
                         remediation_code_sample="""# Secure FastAPI CORS Setup:
@@ -148,7 +168,15 @@ app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True
                         probe_params = {p: payload}
                         res = await self._send_request(client, ep.method, ep.url, params=probe_params)
                         if res is not None and res.status_code == 200:
-                            if "root:x:0:0:" in res.text or "[extensions]" in res.text.lower() or "[fonts]" in res.text.lower():
+                            # Skip WAF challenge / block pages
+                            if any(k in res.text.lower() for k in ["just a moment...", "challenges.cloudflare.com", "cf-chl-widget", "attention required! | cloudflare"]):
+                                continue
+
+                            # Check for genuine host file disclosure
+                            is_passwd = "root:x:0:0:" in res.text
+                            is_win_ini = ("[fonts]" in res.text.lower() or "[extensions]" in res.text.lower()) and not ("<!doctype html" in res.text.lower())
+
+                            if is_passwd or is_win_ini:
                                 evidence = self.record_finding_evidence(
                                     method=ep.method,
                                     url=f"{ep.url}?{p}={payload}",
@@ -178,6 +206,15 @@ app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True
                                         f"Send {ep.method} request with parameter {p}={payload}",
                                         "Observe server host file contents returned in response"
                                     ],
+                                    kali_manual_verification=f"""# Step 1: In Kali Linux Terminal, send path traversal payload:
+curl -v -s -i -X {ep.method} '{ep.url}?{p}={payload}'
+
+# Step 2: Confirm local file system leakage:
+# - Linux: verify presence of root account line: "root:x:0:0:root:/root:/bin/bash"
+# - Windows: verify [fonts] or [extensions] section headers
+
+# Step 3: Test alternative encoded traversal representations:
+curl -s -i -X {ep.method} '{ep.url}?{p}=..%2F..%2F..%2F..%2Fetc%2Fpasswd'""",
                                     evidence=evidence,
                                     remediation_advice="Resolve canonical paths and verify the normalized path is strictly confined to the designated base directory.",
                                     remediation_code_sample="""# Secure File Resolution (Python pathlib):

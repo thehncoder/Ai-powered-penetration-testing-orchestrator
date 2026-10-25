@@ -76,6 +76,18 @@ class WebVulnAgent(BaseAgent):
                             f"Inject payload '{payload}' into parameter '{param}'",
                             "Observe database error disclosure or record bypass in the response"
                         ],
+                        kali_manual_verification=f"""# Step 1: In Kali Linux Terminal, test injection with metacharacter probe:
+curl -v -i -X {ep.method} '{ep.url}?{param}=1%27'
+
+# Step 2: Observe response body for database engine error signatures:
+# - SQLite: "sqlite3.OperationalError"
+# - MySQL: "error in your SQL syntax"
+# - PostgreSQL: "psycopg2.OperationalError" or "syntax error at or near"
+
+# Step 3: Confirm with differential boolean queries:
+curl -s -i -X {ep.method} '{ep.url}?{param}=1%27%20OR%201=1%20--' > /tmp/sqli_true.html
+curl -s -i -X {ep.method} '{ep.url}?{param}=1%27%20AND%201=2%20--' > /tmp/sqli_false.html
+diff -u /tmp/sqli_true.html /tmp/sqli_false.html""",
                         evidence=evidence,
                         remediation_advice="Adopt parameterized queries / prepared statements (e.g. SQLAlchemy, PDO, ORM bind variables) and strictly avoid dynamic string concatenation in SQL queries.",
                         remediation_code_sample="""# Secure Implementation (SQLAlchemy parameterized):
@@ -96,6 +108,10 @@ result = await session.execute(stmt)""",
                 timeout=3.0
             )
             if res is not None:
+                # Prohibit XSS on WAF challenge / block pages
+                if any(k in res.text.lower() for k in ["just a moment...", "challenges.cloudflare.com", "cf-chl-widget", "attention required! | cloudflare"]):
+                    return None
+
                 # Prohibit XSS on non-HTML responses (browsers do not execute scripts in application/json)
                 c_type = res.headers.get("content-type", "").lower()
                 if "application/json" in c_type or "application/pdf" in c_type or "image/" in c_type:
@@ -138,6 +154,14 @@ result = await session.execute(stmt)""",
                             f"Open target URL with '{param}' assigned payload",
                             "Verify raw script tag reflection inside browser document DOM"
                         ],
+                        kali_manual_verification=f"""# Step 1: In Kali Linux Terminal, verify unescaped reflection:
+curl -s -i -X {ep.method} '{ep.url}?{param}=%3Cscript%3Ealert(%27VAPT_XSS_PROBE%27)%3C/script%3E' | grep -i "<script>alert('VAPT_XSS_PROBE')</script>"
+
+# Step 2: Open Chromium / Firefox in Kali Linux:
+# Navigate directly to: {ep.url}?{param}=<script>alert(document.domain)</script>
+
+# Step 3: Open Browser DevTools (F12 -> Elements tab):
+# Verify that the script element is parsed directly as an active DOM node, not as encoded text (&lt;script&gt;).""",
                         evidence=evidence,
                         remediation_advice="Apply contextual HTML entity encoding (e.g., html.escape in Python, DOMPurify on frontend) and deploy a strict Content Security Policy (CSP).",
                         remediation_code_sample="""# Secure Implementation (HTML Escaping):
@@ -177,6 +201,10 @@ safe_input = html.escape(user_input)""",
                     probe_params = {"url": ssrf_payload}
                     res = await self._send_request(client, ep.method, ep.url, params=probe_params, timeout=3.0)
                     if res is not None:
+                        # Reject WAF challenge pages or block pages
+                        if any(k in res.text.lower() for k in ["just a moment...", "challenges.cloudflare.com", "cf-chl-widget", "attention required! | cloudflare"]):
+                            continue
+
                         # Reject false positives: unhydrated SPA catch-all shell is not cloud metadata
                         is_spa_shell = any(k in res.text.lower() for k in ["create-react-app", "<div id=\"root\"", "<div id=\"app\"", "content=\"web site created"])
                         if is_spa_shell:
@@ -215,6 +243,16 @@ safe_input = html.escape(user_input)""",
                                     f"Request endpoint specifying cloud metadata destination",
                                     "Inspect response containing cloud IAM or instance credentials"
                                 ],
+                                kali_manual_verification=f"""# Step 1: In Kali Linux Terminal, probe cloud instance metadata endpoint:
+curl -v -s -i -X {ep.method} '{ep.url}?url=http://169.254.169.254/latest/meta-data/'
+
+# Step 2: Confirm response contains genuine cloud metadata tokens:
+# - AWS: "ami-id", "instance-id", "security-credentials"
+# - GCP: "computeMetadata/v1", "project-id"
+# - Azure: "vmId", "subscriptionId"
+
+# Step 3: Test internal loopback service access:
+curl -s -i -X {ep.method} '{ep.url}?url=http://127.0.0.1:6379' # Redis ping test""",
                                 evidence=evidence,
                                 remediation_advice="Implement strict URL allowlisting, block private IP address spaces, and enforce IMDSv2 token authentication.",
                                 remediation_code_sample="""# Secure Implementation (IP Range Validation):

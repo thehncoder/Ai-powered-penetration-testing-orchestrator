@@ -139,6 +139,7 @@ class VulnerabilityFinding(BaseModel):
     how_attacker_exploits: str = Field(default="", description="Step-by-step real-world adversary exploit scenario")
     real_world_impact: str = Field(default="", description="Business risk, user data theft, or financial damage")
     reproduction_steps: List[str] = Field(default_factory=list)
+    kali_manual_verification: str = Field(default="", description="Step-by-step Kali Linux terminal commands and verification procedure for manual validation")
     evidence: EvidenceArtifact
     remediation_advice: str
     remediation_code_sample: Optional[str] = None

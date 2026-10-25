@@ -103,6 +103,15 @@ class AuthSecAgent(BaseAgent):
                                         f"Issue GET request referencing foreign entity ID '{test_id}'",
                                         "Observe full data payload returned without session authorization check"
                                     ],
+                                    kali_manual_verification=f"""# Step 1: In Kali Linux Terminal, execute baseline request for primary entity:
+curl -s -i -X GET '{probe_url}' > /tmp/user_orig.json
+
+# Step 2: Query adjacent entity ID without session authorization:
+curl -s -i -X GET '{probe_url}?id={test_id}' > /tmp/user_target.json
+
+# Step 3: Compare outputs to confirm unauthorized foreign profile access:
+diff -u /tmp/user_orig.json /tmp/user_target.json
+# Confirm response status is 200 OK and returns PII belonging to another tenant/user.""",
                                     evidence=evidence,
                                     remediation_advice="Enforce row-level ownership checks based on the authenticated session identity rather than client-supplied entity identifiers.",
                                     remediation_code_sample="""# Secure Implementation (Tenant Ownership Check):
@@ -170,6 +179,13 @@ if not user_record:
                                 f"Send {ep.method} request directly to {ep.url} with zero credentials",
                                 "Verify administrative operations or internal configurations are exposed"
                             ],
+                            kali_manual_verification=f"""# Step 1: In Kali Linux Terminal, send unauthenticated GET request to admin route:
+curl -v -s -i -X {ep.method} '{ep.url}'
+
+# Step 2: Verify HTTP response status and body:
+# - Status must be 200 OK (not 401 Unauthorized or 403 Forbidden)
+# - Response contains administrative operations, cluster configs, or user management data
+# - Confirm it is not a redirect to login (/login or 302)""",
                             evidence=evidence,
                             remediation_advice="Enforce role-based access control (RBAC) middleware on all administrative route groups.",
                             remediation_code_sample="""# Secure Middleware:
@@ -242,6 +258,16 @@ async def require_admin_role(request: Request, call_next):
                                 "Send request with forged token in Authorization header",
                                 "Verify elevated administrative permissions granted without secret key"
                             ],
+                            kali_manual_verification=f"""# Step 1: In Kali Linux Terminal, generate unsigned JWT header and payload:
+# Header: echo -n '{{"alg":"none","typ":"JWT"}}' | base64 | tr -d '=' | tr '/+' '_-'
+# Payload: echo -n '{{"user":"admin","role":"admin"}}' | base64 | tr -d '=' | tr '/+' '_-'
+# Full Token: eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4ifQ.
+
+# Step 2: Submit forged token in Authorization header:
+curl -v -s -i -X {ep.method} '{ep.url}' \\
+  -H "Authorization: Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4ifQ."
+
+# Step 3: Verify elevated administrative access granted without cryptographic signature check.""",
                             evidence=evidence,
                             remediation_advice="Explicitly whitelist accepted cryptographic algorithms (e.g. ['RS256', 'HS256']) and explicitly reject 'none'.",
                             remediation_code_sample="""# Secure Implementation (PyJWT):

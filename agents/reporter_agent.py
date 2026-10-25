@@ -201,6 +201,10 @@ class ReporterAgent:
             lines.append("#### 🧪 Reproducible Proof of Concept (cURL Command)")
             lines.append(f"```bash\n{f.evidence.curl_reproduction}\n```")
             lines.append("")
+            lines.append("#### 🐧 Manual Verification in Kali Linux")
+            kali_cmd = f.kali_manual_verification or f.evidence.curl_reproduction
+            lines.append(f"```bash\n{kali_cmd}\n```")
+            lines.append("")
             lines.append("#### 🛠️ Remediation Guidance")
             lines.append(f"{f.remediation_advice}")
             if f.remediation_code_sample:
@@ -298,6 +302,12 @@ class ReporterAgent:
                 <h4 style="margin-top: 14px; font-size: 13px; color: #94a3b8;">🧪 Verified Proof of Concept (cURL Reproduction)</h4>
                 <div class="code-block"><pre><code>{html.escape(f.evidence.curl_reproduction)}</code></pre></div>
               </details>
+
+              <!-- KALI LINUX MANUAL VERIFICATION -->
+              <div class="section-box kali-box">
+                <div class="box-title">🐧 Manual Verification in Kali Linux (Step-by-Step Security Researcher Guide)</div>
+                <div class="code-block"><pre><code>{html.escape(f.kali_manual_verification or f.evidence.curl_reproduction)}</code></pre></div>
+              </div>
 
               <!-- REMEDIATION GUIDANCE -->
               <div class="remediation-box">
@@ -424,6 +434,10 @@ class ReporterAgent:
     .exploit-step {{ display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #e2e8f0; }}
     .step-icon {{ color: #fbbf24; font-size: 14px; flex-shrink: 0; margin-top: 2px; }}
     .step-desc {{ line-height: 1.5; }}
+
+    /* Kali Linux Manual Verification */
+    .kali-box {{ background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); }}
+    .kali-box .box-title {{ color: #60a5fa; }}
 
     /* Technical Details & PoC */
     .tech-details {{ background: #090e17; border: 1px solid var(--card-border); border-radius: 8px; padding: 14px; margin: 16px 0; }}
