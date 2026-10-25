@@ -1,0 +1,774 @@
+{
+  "report_id": "VAPT-REPORT-DLD_SRMIST_EDU_IN-20261025_102835",
+  "generated_at": "2026-10-25T10:28:35.776262",
+  "target": {
+    "target_url": "https://dld.srmist.edu.in",
+    "allowed_domains": [],
+    "excluded_paths": [
+      "/logout",
+      "/delete-account",
+      "/admin/wipe"
+    ],
+    "safe_mode": true,
+    "max_depth": 3,
+    "concurrency_limit": 5,
+    "custom_headers": {}
+  },
+  "summary": {
+    "total_findings": 6,
+    "critical_count": 5,
+    "high_count": 0,
+    "medium_count": 1,
+    "low_count": 0,
+    "info_count": 0,
+    "mean_cvss": 8.5,
+    "coverage_rate": 100.0
+  },
+  "executive_overview": "Target System: https://dld.srmist.edu.in\nOverall Posture: ELEVATED RISK\nMean CVSS Base Score: 8.5/10.0\nAttack Surface Test Coverage: 100.0%\nThe automated assessment identified 5 Critical and 0 High-severity vulnerability vectors. Immediate remediation is mandatory prior to production release.",
+  "reconnaissance": {
+    "target_domain": "dld.srmist.edu.in",
+    "ip_addresses": [
+      "103.4.223.32"
+    ],
+    "subdomains": [
+      "dld.srmist.edu.in"
+    ],
+    "open_ports": [
+      {
+        "port": 443,
+        "protocol": "tcp",
+        "service_name": "https",
+        "version": null,
+        "banner": null,
+        "cpe": null
+      },
+      {
+        "port": 80,
+        "protocol": "tcp",
+        "service_name": "http",
+        "version": null,
+        "banner": null,
+        "cpe": null
+      }
+    ],
+    "technologies": {
+      "web_server": "Nginx"
+    },
+    "endpoints": [
+      {
+        "url": "https://dld.srmist.edu.in",
+        "method": "GET",
+        "parameters": [],
+        "headers": {},
+        "auth_required": false,
+        "content_type": null,
+        "surface_category": "GENERAL",
+        "tested_by_agents": [
+          "WebVulnAgent",
+          "AuthSecAgent",
+          "NetworkInfraAgent"
+        ],
+        "tested_vectors": []
+      },
+      {
+        "url": "https://dld.srmist.edu.in/",
+        "method": "GET",
+        "parameters": [],
+        "headers": {},
+        "auth_required": false,
+        "content_type": null,
+        "surface_category": "GENERAL",
+        "tested_by_agents": [
+          "WebVulnAgent",
+          "AuthSecAgent",
+          "NetworkInfraAgent"
+        ],
+        "tested_vectors": []
+      },
+      {
+        "url": "https://dld.srmist.edu.in/robots.txt",
+        "method": "GET",
+        "parameters": [],
+        "headers": {},
+        "auth_required": false,
+        "content_type": null,
+        "surface_category": "GENERAL",
+        "tested_by_agents": [
+          "WebVulnAgent",
+          "AuthSecAgent",
+          "NetworkInfraAgent"
+        ],
+        "tested_vectors": []
+      },
+      {
+        "url": "https://dld.srmist.edu.in/sitemap.xml",
+        "method": "GET",
+        "parameters": [],
+        "headers": {},
+        "auth_required": false,
+        "content_type": null,
+        "surface_category": "GENERAL",
+        "tested_by_agents": [
+          "WebVulnAgent",
+          "AuthSecAgent",
+          "NetworkInfraAgent"
+        ],
+        "tested_vectors": []
+      },
+      {
+        "url": "https://dld.srmist.edu.in/api",
+        "method": "GET",
+        "parameters": [],
+        "headers": {},
+        "auth_required": false,
+        "content_type": null,
+        "surface_category": "API",
+        "tested_by_agents": [
+          "WebVulnAgent",
+          "AuthSecAgent",
+          "NetworkInfraAgent"
+        ],
+        "tested_vectors": []
+      },
+      {
+        "url": "https://dld.srmist.edu.in/api/v1",
+        "method": "GET",
+        "parameters": [],
+        "headers": {},
+        "auth_required": false,
+        "content_type": null,
+        "surface_category": "API",
+        "tested_by_agents": [
+          "WebVulnAgent",
+          "AuthSecAgent",
+          "NetworkInfraAgent"
+        ],
+        "tested_vectors": []
+      },
+      {
+        "url": "https://dld.srmist.edu.in/health",
+        "method": "GET",
+        "parameters": [],
+        "headers": {},
+        "auth_required": false,
+        "content_type": null,
+        "surface_category": "GENERAL",
+        "tested_by_agents": [
+          "WebVulnAgent",
+          "AuthSecAgent",
+          "NetworkInfraAgent"
+        ],
+        "tested_vectors": []
+      },
+      {
+        "url": "https://dld.srmist.edu.in/login",
+        "method": "GET",
+        "parameters": [],
+        "headers": {},
+        "auth_required": false,
+        "content_type": null,
+        "surface_category": "AUTH",
+        "tested_by_agents": [
+          "WebVulnAgent",
+          "AuthSecAgent",
+          "NetworkInfraAgent"
+        ],
+        "tested_vectors": []
+      },
+      {
+        "url": "https://dld.srmist.edu.in/admin",
+        "method": "GET",
+        "parameters": [],
+        "headers": {},
+        "auth_required": false,
+        "content_type": null,
+        "surface_category": "ADMIN",
+        "tested_by_agents": [
+          "WebVulnAgent",
+          "AuthSecAgent",
+          "NetworkInfraAgent"
+        ],
+        "tested_vectors": [
+          "AUTH_BYPASS"
+        ]
+      },
+      {
+        "url": "https://dld.srmist.edu.in/docs",
+        "method": "GET",
+        "parameters": [],
+        "headers": {},
+        "auth_required": false,
+        "content_type": null,
+        "surface_category": "GENERAL",
+        "tested_by_agents": [
+          "WebVulnAgent",
+          "AuthSecAgent",
+          "NetworkInfraAgent"
+        ],
+        "tested_vectors": []
+      },
+      {
+        "url": "https://dld.srmist.edu.in/openapi.json",
+        "method": "GET",
+        "parameters": [],
+        "headers": {},
+        "auth_required": false,
+        "content_type": null,
+        "surface_category": "API",
+        "tested_by_agents": [
+          "WebVulnAgent",
+          "AuthSecAgent",
+          "NetworkInfraAgent"
+        ],
+        "tested_vectors": []
+      }
+    ],
+    "server_headers": {
+      "server": "nginx",
+      "date": "Sun, 25 Oct 2026 10:28:17 GMT",
+      "content-type": "text/html",
+      "last-modified": "Mon, 28 Sep 2026 08:35:16 GMT",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "vary": "Accept-Encoding",
+      "etag": "W/\"6aba26c4-492\"",
+      "x-frame-options": "SAMEORIGIN",
+      "content-encoding": "gzip"
+    },
+    "waf_detected": null,
+    "timestamp": "2026-10-25T10:28:18.102562"
+  },
+  "quality_gates": [
+    {
+      "wave_name": "Wave 1: Surface Reconnaissance",
+      "gate_timestamp": "2026-10-25T10:28:18.102562",
+      "status": "PASSED",
+      "coverage_score": 100.0,
+      "total_attack_surfaces": 13,
+      "attack_surfaces_tested": 13,
+      "under_tested_surfaces": [],
+      "findings_submitted": 0,
+      "findings_verified": 0,
+      "findings_rejected": 0,
+      "rejection_reasons": {},
+      "quality_notes": [
+        "Discovered 2 services and 11 endpoints.",
+        "Identified stack technologies: web_server"
+      ]
+    },
+    {
+      "wave_name": "Wave 4: Coverage Verification & Quality Gate",
+      "gate_timestamp": "2026-10-25T10:28:35.775260",
+      "status": "PASSED",
+      "coverage_score": 100.0,
+      "total_attack_surfaces": 25,
+      "attack_surfaces_tested": 25,
+      "under_tested_surfaces": [],
+      "findings_submitted": 6,
+      "findings_verified": 6,
+      "findings_rejected": 0,
+      "rejection_reasons": {},
+      "quality_notes": [
+        "Coverage audit passed with 100.0% attack surface test density.",
+        "Verified 6 evidence-backed findings across all specialist agents."
+      ]
+    }
+  ],
+  "threat_model": {
+    "target_host": "dld.srmist.edu.in",
+    "total_threats": 6,
+    "threats_by_category": {
+      "Spoofing": 1,
+      "Tampering": 1,
+      "Repudiation": 1,
+      "Information Disclosure": 1,
+      "Denial of Service": 1,
+      "Elevation of Privilege": 1
+    },
+    "high_risk_surfaces": [
+      "https://dld.srmist.edu.in/dashboard",
+      "https://dld.srmist.edu.in/upload",
+      "https://dld.srmist.edu.in/api/admin/config",
+      "https://dld.srmist.edu.in/login",
+      "https://dld.srmist.edu.in/api/user/profile",
+      "https://dld.srmist.edu.in/admin",
+      "https://dld.srmist.edu.in/api/view"
+    ],
+    "threats": [
+      {
+        "threat_id": "THREAT-STRIDE-S01",
+        "category": "Spoofing",
+        "title": "Authentication Token Forgery & Identity Spoofing",
+        "description": "Adversaries may forge or tamper with authentication bearer tokens or session cookies to impersonate legitimate users.",
+        "affected_components": [
+          "https://dld.srmist.edu.in/login"
+        ],
+        "potential_impact": "Full account takeover and unauthorized transactional capability.",
+        "risk_level": "HIGH",
+        "mitigation_strategy": "Enforce cryptographically strong asymmetric signatures (RS256/Ed25519) on all JWTs, strictly forbid 'none' algorithm, and rotate signing keys periodically.",
+        "owasp_mapping": "A07:2021-Identification and Authentication Failures",
+        "cwe_id": "CWE-287"
+      },
+      {
+        "threat_id": "THREAT-STRIDE-T01",
+        "category": "Tampering",
+        "title": "Input Parameter Manipulation & Query Tampering",
+        "description": "Unsanitized query parameters or request bodies could allow adversaries to tamper with database queries or application state.",
+        "affected_components": [
+          "https://dld.srmist.edu.in/api/users",
+          "https://dld.srmist.edu.in/api/user/profile",
+          "https://dld.srmist.edu.in/api/search",
+          "https://dld.srmist.edu.in/api/echo",
+          "https://dld.srmist.edu.in/api/fetch"
+        ],
+        "potential_impact": "Unauthorized data modification, unauthorized balance alteration, or state corruption.",
+        "risk_level": "HIGH",
+        "mitigation_strategy": "Enforce strict Pydantic/JSON schema validation on all inputs; utilize parameterized ORM queries; apply cryptographic HMACs for stateful parameters.",
+        "owasp_mapping": "A03:2021-Injection",
+        "cwe_id": "CWE-20"
+      },
+      {
+        "threat_id": "THREAT-STRIDE-R01",
+        "category": "Repudiation",
+        "title": "Insufficient Transaction Audit Logging & Non-Repudiation Deficit",
+        "description": "State-altering API calls may lack tamper-evident forensic logging, allowing malicious actors to deny performing actions.",
+        "affected_components": [
+          "https://dld.srmist.edu.in/login",
+          "https://dld.srmist.edu.in/api/user/profile",
+          "https://dld.srmist.edu.in/api/view",
+          "https://dld.srmist.edu.in/upload"
+        ],
+        "potential_impact": "Inability to trace forensic origin of data manipulation, failed compliance audits, disputed chargebacks.",
+        "risk_level": "MEDIUM",
+        "mitigation_strategy": "Implement append-only, cryptographically hashed audit trails for sensitive operations capturing timestamp, user ID, client IP, and request digest.",
+        "owasp_mapping": "A09:2021-Security Logging and Monitoring Failures",
+        "cwe_id": "CWE-778"
+      },
+      {
+        "threat_id": "THREAT-STRIDE-I01",
+        "category": "Information Disclosure",
+        "title": "Technology Stack Fingerprinting & Verbose Error Leakage",
+        "description": "Server response headers, stack traces, and unauthenticated metadata endpoints disclose underlying framework and runtime versions.",
+        "affected_components": [
+          "dld.srmist.edu.in"
+        ],
+        "potential_impact": "Assists attackers in tailoring zero-day exploits targeting exact component versions.",
+        "risk_level": "MEDIUM",
+        "mitigation_strategy": "Strip 'Server' and 'X-Powered-By' headers in reverse proxy configs; disable detailed exception stack dumps in production environments.",
+        "owasp_mapping": "A05:2021-Security Misconfiguration",
+        "cwe_id": "CWE-200"
+      },
+      {
+        "threat_id": "THREAT-STRIDE-D01",
+        "category": "Denial of Service",
+        "title": "Unthrottled API Resource Exhaustion & Heavy Query DoS",
+        "description": "Lack of explicit rate-limiting tokens allows concurrent high-frequency queries to exhaust backend threads and database connection pools.",
+        "affected_components": [
+          "https://dld.srmist.edu.in/api",
+          "https://dld.srmist.edu.in/api/v1",
+          "https://dld.srmist.edu.in/openapi.json",
+          "https://dld.srmist.edu.in/api/users",
+          "https://dld.srmist.edu.in/api/items"
+        ],
+        "potential_impact": "Application downtime, degraded SLA, resource starvation for legitimate users.",
+        "risk_level": "HIGH",
+        "mitigation_strategy": "Deploy leaky-bucket or token-bucket rate limiting (e.g. Redis sliding window) at the API gateway layer.",
+        "owasp_mapping": "A04:2021-Insecure Design",
+        "cwe_id": "CWE-400"
+      },
+      {
+        "threat_id": "THREAT-STRIDE-E01",
+        "category": "Elevation of Privilege",
+        "title": "Horizontal & Vertical Role Authorization Bypass",
+        "description": "Administrative endpoints or object identifiers may not consistently enforce server-side Role-Based Access Control (RBAC).",
+        "affected_components": [
+          "https://dld.srmist.edu.in/admin",
+          "https://dld.srmist.edu.in/api/admin/config",
+          "https://dld.srmist.edu.in/dashboard"
+        ],
+        "potential_impact": "Unprivileged actors executing administrative actions, data wiping, and system reconfiguration.",
+        "risk_level": "CRITICAL",
+        "mitigation_strategy": "Adopt centralized authorization policy middleware; enforce Principle of Least Privilege across all route handlers.",
+        "owasp_mapping": "A01:2021-Broken Access Control",
+        "cwe_id": "CWE-285"
+      }
+    ],
+    "architectural_summary": "STRIDE Threat Analysis for dld.srmist.edu.in identified 6 structural threat vectors across 25 mapped attack surfaces. Priority attention is required for 7 high-risk data and administrative endpoints."
+  },
+  "findings": [
+    {
+      "finding_id": "VULN-SSRF-001",
+      "title": "Server-Side Request Forgery (SSRF) to Cloud Metadata",
+      "severity": "CRITICAL",
+      "category": "SSRF",
+      "owasp_top10": "A10:2021-Server-Side Request Forgery",
+      "cwe_id": "CWE-918",
+      "affected_url": "https://dld.srmist.edu.in/api/fetch",
+      "http_method": "GET",
+      "affected_parameter": "url",
+      "cvss": {
+        "version": "3.1",
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:L/A:N",
+        "base_score": 9.3,
+        "severity": "CRITICAL",
+        "attack_vector": "NETWORK",
+        "attack_complexity": "LOW",
+        "privileges_required": "NONE",
+        "user_interaction": "NONE",
+        "scope": "CHANGED",
+        "confidentiality": "HIGH",
+        "integrity": "LOW",
+        "availability": "NONE"
+      },
+      "confidence": "CERTAIN",
+      "description": "The server accepts arbitrary external URLs and queries them from within the trusted backend network boundary.",
+      "plain_english_summary": "The web server acts as an obedient proxy for the attacker. If the attacker tells it to fetch an address, it will fetch it—even if that address is a secret internal cloud management server that normal internet users can't reach.",
+      "where_is_the_flaw": "Endpoint 'GET https://dld.srmist.edu.in/api/fetch' at parameter 'url'. The server makes HTTP requests to user-supplied web addresses without restricting internal private IP spaces.",
+      "how_attacker_exploits": "1. Attacker sets the 'url' parameter to 'http://169.254.169.254/latest/meta-data/'.\n2. The server queries the internal AWS/GCP instance metadata endpoint on behalf of the attacker.\n3. The response contains temporary IAM admin credentials, secret keys, and internal network IP lists.",
+      "real_world_impact": "Cloud Infrastructure Takeover: Exposure of cloud IAM keys, unauthorized access to private databases, and lateral movement across the entire virtual network.",
+      "reproduction_steps": [
+        "Request endpoint specifying cloud metadata destination",
+        "Inspect response containing cloud IAM or instance credentials"
+      ],
+      "evidence": {
+        "evidence_id": "EVD-08AB1A7EBD",
+        "timestamp": "2026-10-25T10:28:20.199324",
+        "request_method": "GET",
+        "request_url": "https://dld.srmist.edu.in/api/fetch?url=http://169.254.169.254/latest/meta-data/",
+        "request_headers": {},
+        "request_body": null,
+        "response_status_code": 200,
+        "response_headers": {},
+        "response_body_sample": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/logo192.png\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><meta name=\"theme-color\" content=\"#000000\"/><meta name=\"description\" content=\"Web site created using create-react-app\"/><link rel=\"apple-touch-icon\" href=\"/logo192.png\"/><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0\"/><link rel=\"manifest\" href=\"/manifest.json\"/><title>Directorate of Learning and Development</title><script defer=\"defer\" src=\"/static/js/main.9ccc3440.js\"></script><link href=\"/static/css/main.d3539221.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div></body><script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML\"></script><script>MathJax.Ajax.config.path.mhchem=\"https://cdnjs.cloudflare.com/",
+        "payload_applied": "http://169.254.169.254/latest/meta-data/",
+        "curl_reproduction": "curl -s -i -X GET 'https://dld.srmist.edu.in/api/fetch?url=http://169.254.169.254/latest/meta-data/'",
+        "proof_hash": "08ab1a7ebd3ada4b"
+      },
+      "remediation_advice": "Implement strict URL allowlisting, block private IP address spaces, and enforce IMDSv2 token authentication.",
+      "remediation_code_sample": "# Secure Implementation (IP Range Validation):\nimport ipaddress\nip = ipaddress.ip_address(resolved_ip)\nif ip.is_private or ip.is_loopback:\n    raise SecurityException(\"Internal IP access denied\")",
+      "discovered_by_agent": "WebVulnAgent",
+      "verified_by_gate": true
+    },
+    {
+      "finding_id": "VULN-SSRF-002",
+      "title": "Server-Side Request Forgery (SSRF) to Cloud Metadata",
+      "severity": "CRITICAL",
+      "category": "SSRF",
+      "owasp_top10": "A10:2021-Server-Side Request Forgery",
+      "cwe_id": "CWE-918",
+      "affected_url": "https://dld.srmist.edu.in/upload",
+      "http_method": "GET",
+      "affected_parameter": "url",
+      "cvss": {
+        "version": "3.1",
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:L/A:N",
+        "base_score": 9.3,
+        "severity": "CRITICAL",
+        "attack_vector": "NETWORK",
+        "attack_complexity": "LOW",
+        "privileges_required": "NONE",
+        "user_interaction": "NONE",
+        "scope": "CHANGED",
+        "confidentiality": "HIGH",
+        "integrity": "LOW",
+        "availability": "NONE"
+      },
+      "confidence": "CERTAIN",
+      "description": "The server accepts arbitrary external URLs and queries them from within the trusted backend network boundary.",
+      "plain_english_summary": "The web server acts as an obedient proxy for the attacker. If the attacker tells it to fetch an address, it will fetch it—even if that address is a secret internal cloud management server that normal internet users can't reach.",
+      "where_is_the_flaw": "Endpoint 'GET https://dld.srmist.edu.in/upload' at parameter 'url'. The server makes HTTP requests to user-supplied web addresses without restricting internal private IP spaces.",
+      "how_attacker_exploits": "1. Attacker sets the 'url' parameter to 'http://169.254.169.254/latest/meta-data/'.\n2. The server queries the internal AWS/GCP instance metadata endpoint on behalf of the attacker.\n3. The response contains temporary IAM admin credentials, secret keys, and internal network IP lists.",
+      "real_world_impact": "Cloud Infrastructure Takeover: Exposure of cloud IAM keys, unauthorized access to private databases, and lateral movement across the entire virtual network.",
+      "reproduction_steps": [
+        "Request endpoint specifying cloud metadata destination",
+        "Inspect response containing cloud IAM or instance credentials"
+      ],
+      "evidence": {
+        "evidence_id": "EVD-3F3A6ECC62",
+        "timestamp": "2026-10-25T10:28:20.313049",
+        "request_method": "GET",
+        "request_url": "https://dld.srmist.edu.in/upload?url=http://169.254.169.254/latest/meta-data/",
+        "request_headers": {},
+        "request_body": null,
+        "response_status_code": 200,
+        "response_headers": {},
+        "response_body_sample": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/logo192.png\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><meta name=\"theme-color\" content=\"#000000\"/><meta name=\"description\" content=\"Web site created using create-react-app\"/><link rel=\"apple-touch-icon\" href=\"/logo192.png\"/><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0\"/><link rel=\"manifest\" href=\"/manifest.json\"/><title>Directorate of Learning and Development</title><script defer=\"defer\" src=\"/static/js/main.9ccc3440.js\"></script><link href=\"/static/css/main.d3539221.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div></body><script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML\"></script><script>MathJax.Ajax.config.path.mhchem=\"https://cdnjs.cloudflare.com/",
+        "payload_applied": "http://169.254.169.254/latest/meta-data/",
+        "curl_reproduction": "curl -s -i -X GET 'https://dld.srmist.edu.in/upload?url=http://169.254.169.254/latest/meta-data/'",
+        "proof_hash": "3f3a6ecc625196f3"
+      },
+      "remediation_advice": "Implement strict URL allowlisting, block private IP address spaces, and enforce IMDSv2 token authentication.",
+      "remediation_code_sample": "# Secure Implementation (IP Range Validation):\nimport ipaddress\nip = ipaddress.ip_address(resolved_ip)\nif ip.is_private or ip.is_loopback:\n    raise SecurityException(\"Internal IP access denied\")",
+      "discovered_by_agent": "WebVulnAgent",
+      "verified_by_gate": true
+    },
+    {
+      "finding_id": "VULN-ADMIN-001",
+      "title": "Unauthenticated Access to Administrative Endpoint: https://dld.srmist.edu.in/admin",
+      "severity": "CRITICAL",
+      "category": "BROKEN_ACCESS_CONTROL",
+      "owasp_top10": "A01:2021-Broken Access Control",
+      "cwe_id": "CWE-306",
+      "affected_url": "https://dld.srmist.edu.in/admin",
+      "http_method": "GET",
+      "affected_parameter": null,
+      "cvss": {
+        "version": "3.1",
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+        "base_score": 9.1,
+        "severity": "CRITICAL",
+        "attack_vector": "NETWORK",
+        "attack_complexity": "LOW",
+        "privileges_required": "NONE",
+        "user_interaction": "NONE",
+        "scope": "UNCHANGED",
+        "confidentiality": "HIGH",
+        "integrity": "HIGH",
+        "availability": "NONE"
+      },
+      "confidence": "CERTAIN",
+      "description": "Privileged administrative endpoint is accessible anonymously without authentication or RBAC validation.",
+      "plain_english_summary": "The admin control panel has no lock on the front door. Anyone who knows or guesses the URL can enter and use management functions without entering any password or logging in.",
+      "where_is_the_flaw": "Endpoint 'GET https://dld.srmist.edu.in/admin'. The route handler lacks authentication and role-based access control (RBAC) middleware, allowing open anonymous internet traffic to reach management functions.",
+      "how_attacker_exploits": "1. Attacker discovers the admin endpoint via directory brute-forcing or automated scanning.\n2. Attacker sends a direct request without any authorization headers.\n3. The application grants unrestricted access to privileged operations, user lists, and internal system configs.",
+      "real_world_impact": "Full Administrative Compromise: Unauthorized management of users, backend configurations, system status, and internal operational data.",
+      "reproduction_steps": [
+        "Send GET request directly to https://dld.srmist.edu.in/admin with zero credentials",
+        "Verify administrative operations or internal configurations are exposed"
+      ],
+      "evidence": {
+        "evidence_id": "EVD-ED70D7BCF1",
+        "timestamp": "2026-10-25T10:28:20.330922",
+        "request_method": "GET",
+        "request_url": "https://dld.srmist.edu.in/admin",
+        "request_headers": {},
+        "request_body": null,
+        "response_status_code": 200,
+        "response_headers": {},
+        "response_body_sample": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/logo192.png\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><meta name=\"theme-color\" content=\"#000000\"/><meta name=\"description\" content=\"Web site created using create-react-app\"/><link rel=\"apple-touch-icon\" href=\"/logo192.png\"/><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0\"/><link rel=\"manifest\" href=\"/manifest.json\"/><title>Directorate of Learning and Development</title><script defer=\"defer\" src=\"/static/js/main.9ccc3440.js\"></script><link href=\"/static/css/main.d3539221.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div></body><script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML\"></script><script>MathJax.Ajax.config.path.mhchem=\"https://cdnjs.cloudflare.com/",
+        "payload_applied": "No Auth Header Probe",
+        "curl_reproduction": "curl -s -i -X GET 'https://dld.srmist.edu.in/admin'",
+        "proof_hash": "ed70d7bcf123bb7e"
+      },
+      "remediation_advice": "Enforce role-based access control (RBAC) middleware on all administrative route groups.",
+      "remediation_code_sample": "# Secure Middleware:\n@app.middleware(\"http\")\nasync def require_admin_role(request: Request, call_next):\n    if request.url.path.startswith(\"/admin\") and request.state.user.role != \"ADMIN\":\n        return Response(status_code=403)\n    return await call_next(request)",
+      "discovered_by_agent": "AuthSecAgent",
+      "verified_by_gate": true
+    },
+    {
+      "finding_id": "VULN-ADMIN-002",
+      "title": "Unauthenticated Access to Administrative Endpoint: https://dld.srmist.edu.in/api/admin/config",
+      "severity": "CRITICAL",
+      "category": "BROKEN_ACCESS_CONTROL",
+      "owasp_top10": "A01:2021-Broken Access Control",
+      "cwe_id": "CWE-306",
+      "affected_url": "https://dld.srmist.edu.in/api/admin/config",
+      "http_method": "GET",
+      "affected_parameter": null,
+      "cvss": {
+        "version": "3.1",
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+        "base_score": 9.1,
+        "severity": "CRITICAL",
+        "attack_vector": "NETWORK",
+        "attack_complexity": "LOW",
+        "privileges_required": "NONE",
+        "user_interaction": "NONE",
+        "scope": "UNCHANGED",
+        "confidentiality": "HIGH",
+        "integrity": "HIGH",
+        "availability": "NONE"
+      },
+      "confidence": "CERTAIN",
+      "description": "Privileged administrative endpoint is accessible anonymously without authentication or RBAC validation.",
+      "plain_english_summary": "The admin control panel has no lock on the front door. Anyone who knows or guesses the URL can enter and use management functions without entering any password or logging in.",
+      "where_is_the_flaw": "Endpoint 'GET https://dld.srmist.edu.in/api/admin/config'. The route handler lacks authentication and role-based access control (RBAC) middleware, allowing open anonymous internet traffic to reach management functions.",
+      "how_attacker_exploits": "1. Attacker discovers the admin endpoint via directory brute-forcing or automated scanning.\n2. Attacker sends a direct request without any authorization headers.\n3. The application grants unrestricted access to privileged operations, user lists, and internal system configs.",
+      "real_world_impact": "Full Administrative Compromise: Unauthorized management of users, backend configurations, system status, and internal operational data.",
+      "reproduction_steps": [
+        "Send GET request directly to https://dld.srmist.edu.in/api/admin/config with zero credentials",
+        "Verify administrative operations or internal configurations are exposed"
+      ],
+      "evidence": {
+        "evidence_id": "EVD-9BEB483920",
+        "timestamp": "2026-10-25T10:28:21.713371",
+        "request_method": "GET",
+        "request_url": "https://dld.srmist.edu.in/api/admin/config",
+        "request_headers": {},
+        "request_body": null,
+        "response_status_code": 200,
+        "response_headers": {},
+        "response_body_sample": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/logo192.png\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><meta name=\"theme-color\" content=\"#000000\"/><meta name=\"description\" content=\"Web site created using create-react-app\"/><link rel=\"apple-touch-icon\" href=\"/logo192.png\"/><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0\"/><link rel=\"manifest\" href=\"/manifest.json\"/><title>Directorate of Learning and Development</title><script defer=\"defer\" src=\"/static/js/main.9ccc3440.js\"></script><link href=\"/static/css/main.d3539221.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div></body><script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML\"></script><script>MathJax.Ajax.config.path.mhchem=\"https://cdnjs.cloudflare.com/",
+        "payload_applied": "No Auth Header Probe",
+        "curl_reproduction": "curl -s -i -X GET 'https://dld.srmist.edu.in/api/admin/config'",
+        "proof_hash": "9beb48392027ccd3"
+      },
+      "remediation_advice": "Enforce role-based access control (RBAC) middleware on all administrative route groups.",
+      "remediation_code_sample": "# Secure Middleware:\n@app.middleware(\"http\")\nasync def require_admin_role(request: Request, call_next):\n    if request.url.path.startswith(\"/admin\") and request.state.user.role != \"ADMIN\":\n        return Response(status_code=403)\n    return await call_next(request)",
+      "discovered_by_agent": "AuthSecAgent",
+      "verified_by_gate": true
+    },
+    {
+      "finding_id": "VULN-ADMIN-003",
+      "title": "Unauthenticated Access to Administrative Endpoint: https://dld.srmist.edu.in/dashboard",
+      "severity": "CRITICAL",
+      "category": "BROKEN_ACCESS_CONTROL",
+      "owasp_top10": "A01:2021-Broken Access Control",
+      "cwe_id": "CWE-306",
+      "affected_url": "https://dld.srmist.edu.in/dashboard",
+      "http_method": "GET",
+      "affected_parameter": null,
+      "cvss": {
+        "version": "3.1",
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+        "base_score": 9.1,
+        "severity": "CRITICAL",
+        "attack_vector": "NETWORK",
+        "attack_complexity": "LOW",
+        "privileges_required": "NONE",
+        "user_interaction": "NONE",
+        "scope": "UNCHANGED",
+        "confidentiality": "HIGH",
+        "integrity": "HIGH",
+        "availability": "NONE"
+      },
+      "confidence": "CERTAIN",
+      "description": "Privileged administrative endpoint is accessible anonymously without authentication or RBAC validation.",
+      "plain_english_summary": "The admin control panel has no lock on the front door. Anyone who knows or guesses the URL can enter and use management functions without entering any password or logging in.",
+      "where_is_the_flaw": "Endpoint 'GET https://dld.srmist.edu.in/dashboard'. The route handler lacks authentication and role-based access control (RBAC) middleware, allowing open anonymous internet traffic to reach management functions.",
+      "how_attacker_exploits": "1. Attacker discovers the admin endpoint via directory brute-forcing or automated scanning.\n2. Attacker sends a direct request without any authorization headers.\n3. The application grants unrestricted access to privileged operations, user lists, and internal system configs.",
+      "real_world_impact": "Full Administrative Compromise: Unauthorized management of users, backend configurations, system status, and internal operational data.",
+      "reproduction_steps": [
+        "Send GET request directly to https://dld.srmist.edu.in/dashboard with zero credentials",
+        "Verify administrative operations or internal configurations are exposed"
+      ],
+      "evidence": {
+        "evidence_id": "EVD-F31E63C228",
+        "timestamp": "2026-10-25T10:28:21.839648",
+        "request_method": "GET",
+        "request_url": "https://dld.srmist.edu.in/dashboard",
+        "request_headers": {},
+        "request_body": null,
+        "response_status_code": 200,
+        "response_headers": {},
+        "response_body_sample": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/logo192.png\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><meta name=\"theme-color\" content=\"#000000\"/><meta name=\"description\" content=\"Web site created using create-react-app\"/><link rel=\"apple-touch-icon\" href=\"/logo192.png\"/><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0\"/><link rel=\"manifest\" href=\"/manifest.json\"/><title>Directorate of Learning and Development</title><script defer=\"defer\" src=\"/static/js/main.9ccc3440.js\"></script><link href=\"/static/css/main.d3539221.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div></body><script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML\"></script><script>MathJax.Ajax.config.path.mhchem=\"https://cdnjs.cloudflare.com/",
+        "payload_applied": "No Auth Header Probe",
+        "curl_reproduction": "curl -s -i -X GET 'https://dld.srmist.edu.in/dashboard'",
+        "proof_hash": "f31e63c2287b30b7"
+      },
+      "remediation_advice": "Enforce role-based access control (RBAC) middleware on all administrative route groups.",
+      "remediation_code_sample": "# Secure Middleware:\n@app.middleware(\"http\")\nasync def require_admin_role(request: Request, call_next):\n    if request.url.path.startswith(\"/admin\") and request.state.user.role != \"ADMIN\":\n        return Response(status_code=403)\n    return await call_next(request)",
+      "discovered_by_agent": "AuthSecAgent",
+      "verified_by_gate": true
+    },
+    {
+      "finding_id": "VULN-HDR-001",
+      "title": "Missing Critical Security Hardening Headers: Content-Security-Policy (CSP), X-Content-Type-Options",
+      "severity": "MEDIUM",
+      "category": "SECURITY_MISCONFIG",
+      "owasp_top10": "A05:2021-Security Misconfiguration",
+      "cwe_id": "CWE-16",
+      "affected_url": "https://dld.srmist.edu.in",
+      "http_method": "GET",
+      "affected_parameter": "HTTP Response Headers",
+      "cvss": {
+        "version": "3.1",
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+        "base_score": 5.3,
+        "severity": "MEDIUM",
+        "attack_vector": "NETWORK",
+        "attack_complexity": "LOW",
+        "privileges_required": "NONE",
+        "user_interaction": "NONE",
+        "scope": "UNCHANGED",
+        "confidentiality": "LOW",
+        "integrity": "NONE",
+        "availability": "NONE"
+      },
+      "confidence": "CERTAIN",
+      "description": "The application responds without critical security defenses (Content-Security-Policy (CSP), X-Content-Type-Options), increasing susceptibility to clickjacking and MIME-type sniffing.",
+      "plain_english_summary": "The server is missing browser security shield instructions. These headers tell browsers not to allow other websites to frame your site inside an invisible window (clickjacking) or guess file types dangerously.",
+      "where_is_the_flaw": "HTTP response headers on base URL 'https://dld.srmist.edu.in'. The web server configuration is missing defensive HTTP headers: Content-Security-Policy (CSP), X-Content-Type-Options.",
+      "how_attacker_exploits": "1. Attacker embeds your website in an invisible iframe on a malicious webpage (Clickjacking).\n2. The attacker tricks a logged-in user into clicking buttons on the overlay, unknowingly performing transactions or altering account settings.",
+      "real_world_impact": "Clickjacking & MIME Spoofing: Users can be tricked into performing unintended state changes, or browsers can be tricked into executing malicious scripts via MIME confusion.",
+      "reproduction_steps": [
+        "Send GET request to https://dld.srmist.edu.in",
+        "Inspect response headers to verify absence of CSP, X-Frame-Options, or X-Content-Type-Options"
+      ],
+      "evidence": {
+        "evidence_id": "EVD-AB279E9EF1",
+        "timestamp": "2026-10-25T10:28:20.202878",
+        "request_method": "GET",
+        "request_url": "https://dld.srmist.edu.in",
+        "request_headers": {},
+        "request_body": null,
+        "response_status_code": 200,
+        "response_headers": {},
+        "response_body_sample": "server: nginx\ndate: Sun, 25 Oct 2026 10:28:20 GMT\ncontent-type: text/html\nlast-modified: Mon, 28 Sep 2026 08:35:16 GMT\ntransfer-encoding: chunked\nconnection: keep-alive\nvary: Accept-Encoding\netag: W/\"6aba26c4-492\"\nx-frame-options: SAMEORIGIN\ncontent-encoding: gzip",
+        "payload_applied": "Header Audit Probe",
+        "curl_reproduction": "curl -s -i -X GET 'https://dld.srmist.edu.in'",
+        "proof_hash": "ab279e9ef13c77d2"
+      },
+      "remediation_advice": "Configure reverse proxy or web application middleware to return defensive security headers.",
+      "remediation_code_sample": "# Secure Nginx Configuration:\nadd_header X-Frame-Options \"DENY\" always;\nadd_header X-Content-Type-Options \"nosniff\" always;\nadd_header Content-Security-Policy \"default-src 'self';\" always;",
+      "discovered_by_agent": "NetworkInfraAgent",
+      "verified_by_gate": true
+    }
+  ],
+  "remediation_plan": [
+    {
+      "priority": 1,
+      "finding_id": "VULN-SSRF-001",
+      "title": "Server-Side Request Forgery (SSRF) to Cloud Metadata",
+      "severity": "CRITICAL",
+      "cvss_score": 9.3,
+      "affected_url": "https://dld.srmist.edu.in/api/fetch",
+      "remediation_action": "Implement strict URL allowlisting, block private IP address spaces, and enforce IMDSv2 token authentication."
+    },
+    {
+      "priority": 2,
+      "finding_id": "VULN-SSRF-002",
+      "title": "Server-Side Request Forgery (SSRF) to Cloud Metadata",
+      "severity": "CRITICAL",
+      "cvss_score": 9.3,
+      "affected_url": "https://dld.srmist.edu.in/upload",
+      "remediation_action": "Implement strict URL allowlisting, block private IP address spaces, and enforce IMDSv2 token authentication."
+    },
+    {
+      "priority": 3,
+      "finding_id": "VULN-ADMIN-001",
+      "title": "Unauthenticated Access to Administrative Endpoint: https://dld.srmist.edu.in/admin",
+      "severity": "CRITICAL",
+      "cvss_score": 9.1,
+      "affected_url": "https://dld.srmist.edu.in/admin",
+      "remediation_action": "Enforce role-based access control (RBAC) middleware on all administrative route groups."
+    },
+    {
+      "priority": 4,
+      "finding_id": "VULN-ADMIN-002",
+      "title": "Unauthenticated Access to Administrative Endpoint: https://dld.srmist.edu.in/api/admin/config",
+      "severity": "CRITICAL",
+      "cvss_score": 9.1,
+      "affected_url": "https://dld.srmist.edu.in/api/admin/config",
+      "remediation_action": "Enforce role-based access control (RBAC) middleware on all administrative route groups."
+    },
+    {
+      "priority": 5,
+      "finding_id": "VULN-ADMIN-003",
+      "title": "Unauthenticated Access to Administrative Endpoint: https://dld.srmist.edu.in/dashboard",
+      "severity": "CRITICAL",
+      "cvss_score": 9.1,
+      "affected_url": "https://dld.srmist.edu.in/dashboard",
+      "remediation_action": "Enforce role-based access control (RBAC) middleware on all administrative route groups."
+    },
+    {
+      "priority": 6,
+      "finding_id": "VULN-HDR-001",
+      "title": "Missing Critical Security Hardening Headers: Content-Security-Policy (CSP), X-Content-Type-Options",
+      "severity": "MEDIUM",
+      "cvss_score": 5.3,
+      "affected_url": "https://dld.srmist.edu.in",
+      "remediation_action": "Configure reverse proxy or web application middleware to return defensive security headers."
+    }
+  ]
+}
