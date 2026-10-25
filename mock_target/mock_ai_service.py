@@ -220,12 +220,20 @@ async def sandboxed_tool(request: Request):
             status_code=403,
             content={
                 "status": "error",
+                "tool_status": "blocked",
                 "tool_result": None,
                 "message": f"Unauthorized tool '{tool_name}'. Tool is not in allowlist: {ALLOWED_TOOLS}"
             }
         )
 
-    return JSONResponse({"status": "success", "tool_result": "42"})
+    return JSONResponse({
+        "status": "success",
+        "tool_status": "executed",
+        "tool_name": tool_name,
+        "tool_result": "Calculation output: 42",
+        "model_response": "I executed the authorized calculator tool and the result is 42.",
+        "exit_code": 0
+    })
 
 
 @mock_ai_app.post("/api/ai/echo-api")

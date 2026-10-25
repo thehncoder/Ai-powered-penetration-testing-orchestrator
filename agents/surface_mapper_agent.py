@@ -31,6 +31,8 @@ class SurfaceMapperAgent:
         "/api/view",
         "/api/admin/config",
         "/api/ai/chat",
+        "/api/ai/vulnerable-tool",
+        "/api/ai/sandboxed-tool",
         "/dashboard",
         "/upload",
         "/docs",

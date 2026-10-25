@@ -5,7 +5,9 @@
     "description": "Ground-truth benchmark test corpus containing 15 positive vulnerability vectors and 15 negative false-positive traps to evaluate detection precision and recall.",
     "total_cases": 30,
     "positive_cases": 15,
-    "negative_cases": 15
+    "negative_cases": 15,
+    "evaluation_type": "synthetic_corpus_rule_based_harness",
+    "scope_notice": "Evaluated against defined synthetic response corpus. Does not constitute proof of 100% accuracy against arbitrary live production targets."
   },
   "metrics": {
     "total_cases": 30,

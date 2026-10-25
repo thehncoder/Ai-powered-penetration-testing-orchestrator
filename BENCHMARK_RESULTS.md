@@ -1,8 +1,8 @@
-# 📊 Empirical Benchmark Evaluation & Technical Limitations
+# 📊 Synthetic Corpus Benchmark Evaluation & Real-World Limitations
 
 **AI-Powered Penetration Testing Orchestrator**  
 **Lead Architect & Security Researcher**: Harshit Nigam  
-**Evaluation Corpus**: `AI-VAPT-Ground-Truth-Corpus-v1` (30 Ground-Truth Test Cases)  
+**Evaluation Scope**: Defined Synthetic Response Corpus (`AI-VAPT-Ground-Truth-Corpus-v1`) & Rule-Based Harness  
 **Evaluation Date**: October 2026
 
 ---
@@ -14,16 +14,19 @@ Automated security scanners have historically suffered from the **Precision vs. 
 - Strict noise filters often lead to **false negatives** on non-standard routes, multi-cloud metadata endpoints, and rendered HTML views.
 - Naive LLM wrappers hallucinate vulnerabilities without reproducible wire proofs.
 
-To validate the **Differential Oracle Quality Gate** and **Evidence Vault**, this project was evaluated against a **30-case ground-truth test corpus** containing **15 confirmed vulnerability vectors** and **15 tricky false-positive traps** drawn from real-world web environments.
+To validate the **Differential Oracle Quality Gate** and **Evidence Vault**, this project was evaluated against a **30-case defined synthetic response corpus** containing **15 confirmed vulnerability vectors** and **15 tricky false-positive traps** drawn from real-world web environments.
 
 > [!IMPORTANT]
-> **Defensive Honesty Notice**: No automated security scanner can guarantee 0% false positives or 0% false negatives in arbitrary, uncontrolled production environments. Real-world applications feature custom WAFs, proprietary middleware, and unpredictable edge cases. Cryptographic SHA-256 hashes prove **HTTP transaction artifact integrity and forensic reproducibility**, while semantic vulnerability truth is established through differential baseline checks and deterministic exploit signatures.
+> **Synthetic Benchmark Clarification & Scope Notice**:
+> The 30/30 (100% Precision, 100% Recall, 1.000 F1) outcome reported below comes strictly from a defined synthetic response corpus (`test_corpus.json`) and a deterministic, rule-based evaluation harness (`evaluate_benchmark.py`).
+> - **What this proves**: Demonstrates that the differential quality gate, cryptographic evidence hashing, and specific false-positive elimination heuristics behave accurately when evaluated against controlled positive vulnerability signatures and tricky negative traps.
+> - **What this does NOT prove**: This benchmark is **not** proof of 100% accuracy, zero false positives, or zero false negatives against real, uncontrolled web applications. Uncontrolled production environments feature custom WAF behaviors, proprietary middleware, dynamic front-ends, and unpredictable application state that automated heuristics cannot guarantee with 100% accuracy. Cryptographic SHA-256 hashes prove **HTTP transaction artifact integrity and forensic reproducibility**, while semantic vulnerability truth is established through differential baseline checks and deterministic exploit signatures.
 
 ---
 
 ## 📈 Measured Empirical Metrics
 
-The benchmark harness was executed against the ground-truth corpus with the following measured outcomes:
+The benchmark harness was executed against the 30-case synthetic response corpus with the following measured outcomes:
 
 | Metric | Measured Value | Formula / Standard |
 | :--- | :---: | :--- |

@@ -8,8 +8,8 @@
 [![Pydantic v2](https://img.shields.io/badge/Pydantic-v2.11+-E92063.svg?style=for-the-badge&logo=pydantic&logoColor=white)](https://docs.pydantic.dev/)
 [![CVSS v3.1](https://img.shields.io/badge/CVSS-v3.1_FIRST_Spec-blue.svg?style=for-the-badge)](https://www.first.org/cvss/)
 [![CI](https://github.com/thehncoder/Ai-powered-penetration-testing-orchestrator/actions/workflows/ci.yml/badge.svg)](https://github.com/thehncoder/Ai-powered-penetration-testing-orchestrator/actions)
-[![Tests](https://img.shields.io/badge/Unit%20Tests-46%2F46%20Passing-success.svg?style=for-the-badge&logo=pytest&logoColor=white)]()
-[![Benchmark](https://img.shields.io/badge/Corpus%20Benchmark-30%2F30%20Verified-brightgreen.svg?style=for-the-badge)](BENCHMARK_RESULTS.md)
+[![Tests](https://img.shields.io/badge/Unit%20Tests-32%2F32%20Passing-success.svg?style=for-the-badge&logo=pytest&logoColor=white)]()
+[![Benchmark](https://img.shields.io/badge/Synthetic%20Benchmark-30%2F30%20Cases-brightgreen.svg?style=for-the-badge)](BENCHMARK_RESULTS.md)
 [![Evidence Integrity](https://img.shields.io/badge/Evidence-SHA--256_Integrity-blue.svg?style=for-the-badge)]()
 [![Validation](https://img.shields.io/badge/Validation-Differential_Oracle-brightgreen.svg?style=for-the-badge)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
@@ -263,28 +263,29 @@ python -m pytest tests/ -v
 ```
 ```text
 ============================= test session starts =============================
-collected 46 items
+collected 32 items
 
-tests/test_ai_sec_agent.py (20 tests) ....................                [ 43%]
-tests/test_benchmark_corpus.py (1 test) .                                [ 45%]
-tests/test_cvss_engine.py (3 tests) ...                                  [ 52%]
-tests/test_false_negative_prevention.py (6 tests) ......                 [ 65%]
-tests/test_false_positive_elimination.py (4 tests) ....                  [ 73%]
-tests/test_full_pipeline.py (1 test) .                                   [ 76%]
-tests/test_quality_gate.py (2 tests) ..                                  [ 80%]
-tests/test_regression_engine.py (7 tests) .......                        [ 95%]
-tests/test_reporter_exploit_narrative.py (1 test) .                      [ 97%]
+tests/test_ai_sec_agent.py (10 tests) ..........                          [ 31%]
+tests/test_benchmark_corpus.py (1 test) .                                [ 34%]
+tests/test_cvss_engine.py (3 tests) ...                                  [ 43%]
+tests/test_false_negative_prevention.py (5 tests) .....                  [ 59%]
+tests/test_false_positive_elimination.py (4 tests) ....                  [ 71%]
+tests/test_full_pipeline.py (1 test) .                                   [ 75%]
+tests/test_quality_gate.py (2 tests) ..                                  [ 81%]
+tests/test_regression_engine.py (4 tests) ....                           [ 93%]
+tests/test_reporter_exploit_narrative.py (1 test) .                      [ 96%]
 tests/test_threat_model.py (1 test) .                                    [100%]
 
-============================= 46 passed in 2.26s ==============================
+============================= 32 passed in 2.29s ==============================
 ```
 
-### 6. Ground-Truth Benchmark Evaluation
-Execute the empirical benchmark suite against the 30-case ground-truth corpus (15 positive vulnerability vectors and 15 negative false-positive traps):
+### 6. Synthetic Corpus Benchmark Evaluation
+Execute the empirical benchmark suite against the 30-case synthetic test corpus (15 positive vulnerability vectors and 15 negative false-positive traps):
 ```bash
 python benchmark/evaluate_benchmark.py
 ```
-> See [`BENCHMARK_RESULTS.md`](BENCHMARK_RESULTS.md) for full empirical metrics (Precision, Recall, F1), test matrix, and documented limitations.
+> [!NOTE]
+> **Synthetic Benchmark Clarification**: The 30/30 result is measured strictly against this defined synthetic response corpus and rule-based evaluation harness (`benchmark/test_corpus.json`). It validates that the differential heuristics and quality gate logic behave as designed under controlled synthetic conditions; it does **not** constitute proof of 100% accuracy, zero false positives, or zero false negatives against live, uncontrolled web applications. See [`BENCHMARK_RESULTS.md`](BENCHMARK_RESULTS.md) for full empirical metrics, test breakdown, and documented boundaries.
 
 ---
 

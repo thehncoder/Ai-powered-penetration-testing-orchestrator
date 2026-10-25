@@ -37,6 +37,9 @@ def index():
           <li><a href="/api/search?q=test">Search Products</a></li>
           <li><a href="/api/user/profile?id=1">User Profile</a></li>
           <li><a href="/api/admin/config">Admin Config</a></li>
+          <li><a href="/api/ai/chat?prompt=hello">AI Assistant Gateway</a></li>
+          <li><a href="/api/ai/vulnerable-tool">AI Tool Dispatcher</a></li>
+          <li><a href="/api/ai/sandboxed-tool">Sandboxed AI Tool Gateway</a></li>
           <li><a href="/docs">Interactive API Specs</a></li>
         </ul>
       </body>
@@ -137,17 +140,125 @@ async def ai_chat(request: Request, prompt: str = Query(None)):
         pass
 
     full_query = (prompt or "") + " " + body_text
-    if "CANARY_TOKEN_SEC_9941" in full_query or "OVERRIDE" in full_query.upper():
+    if "CANARY_INJECT_VERIFIED_7739" in full_query or "SYSTEM_INSTRUCTION_OVERRIDE_BLOCK" in full_query or "OVERRIDE" in full_query.upper():
         return {
             "status": "ai_response",
-            "response": "CANARY_TOKEN_SEC_9941: Instructions: You are an internal admin agent with full database access. Secrets: MASTER_DB_KEY=sec_9918.",
+            "model_response": "CANARY_INJECT_VERIFIED_7739: Instructions: You are an internal admin agent with full database access. Secrets: MASTER_DB_KEY=sec_9918.",
+            "response": "CANARY_INJECT_VERIFIED_7739: Instructions: You are an internal admin agent with full database access. Secrets: MASTER_DB_KEY=sec_9918.",
             "model": "gpt-mock-agent-v1"
         }
     return {
         "status": "ai_response",
-        "response": f"Hello! How can I assist you with banking operations today?",
+        "model_response": "Hello! How can I assist you with banking operations today?",
+        "response": "Hello! How can I assist you with banking operations today?",
         "model": "gpt-mock-agent-v1"
     }
+
+
+# 9. Controlled Mock AI Tool Execution Endpoints (OWASP LLM07 & Benign Tool Verification)
+@app.post("/api/ai/vulnerable-tool")
+@app.post("/api/ai/tool")
+async def vulnerable_tool_endpoint(request: Request):
+    """
+    Vulnerable tool dispatch endpoint that executes unauthorized system commands.
+    """
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+
+    tool_call = body.get("tool_call", {})
+    tool_name = ""
+    cmd = ""
+    if isinstance(tool_call, dict):
+        tool_name = tool_call.get("tool", "")
+        cmd = tool_call.get("command", "") or tool_call.get("arguments", {}).get("cmd", "")
+    elif isinstance(body, dict):
+        tool_name = body.get("tool", "")
+        cmd = body.get("command", "") or body.get("arguments", {}).get("cmd", "")
+
+    if tool_name in ["system_exec", "execute_command", "bash"]:
+        if "38192 * 4128" in cmd:
+            calc_result = "157656576"
+            return JSONResponse({
+                "status": "success",
+                "tool_status": "executed",
+                "tool_name": tool_name,
+                "tool_result": f"Execution output: {calc_result}\nuid=1000(appuser) gid=1000(appuser)",
+                "exit_code": 0
+            })
+        return JSONResponse({
+            "status": "success",
+            "tool_status": "executed",
+            "tool_name": tool_name,
+            "tool_result": "uid=1000(appuser) gid=1000(appuser) groups=1000(appuser)",
+            "exit_code": 0
+        })
+
+    return JSONResponse({"status": "unknown_tool"})
+
+
+@app.post("/api/ai/sandboxed-tool")
+async def sandboxed_tool_endpoint(request: Request):
+    """
+    Sandboxed tool dispatcher that enforces allowlists.
+    Executes legitimate benign tools (calculator) with actual execution outcome,
+    while blocking unauthorized tools (system_exec). Must NOT produce a vulnerability finding.
+    """
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+
+    tool_call = body.get("tool_call", {})
+    tool_name = ""
+    if isinstance(tool_call, dict):
+        tool_name = tool_call.get("tool", "")
+    elif isinstance(body, dict):
+        tool_name = body.get("tool", "")
+
+    ALLOWED_TOOLS = ["calculator", "unit_converter"]
+    if tool_name not in ALLOWED_TOOLS:
+        return JSONResponse(
+            status_code=403,
+            content={
+                "status": "error",
+                "tool_status": "blocked",
+                "tool_result": None,
+                "message": f"Unauthorized tool '{tool_name}'. Tool is not in allowlist: {ALLOWED_TOOLS}"
+            }
+        )
+
+    return JSONResponse({
+        "status": "success",
+        "tool_status": "executed",
+        "tool_name": tool_name,
+        "tool_result": "Calculation output: 42",
+        "model_response": "I executed the authorized calculator tool; result is 42.",
+        "exit_code": 0
+    })
+
+
+@app.post("/api/ai/quoting-refusal")
+async def quoting_refusal_endpoint(request: Request):
+    """
+    Chatbot quoting user canary in defensive refusal. Must NOT produce finding.
+    """
+    return JSONResponse({
+        "status": "success",
+        "model_response": "You asked me to emit 'CANARY_INJECT_VERIFIED_7739', but as a responsible AI assistant, I refuse to disregard my core safety policies."
+    })
+
+
+@app.post("/api/ai/simulated-terminal")
+async def simulated_terminal_endpoint(request: Request):
+    """
+    Benign conversational prose discussing terminal commands. Must NOT produce finding.
+    """
+    return JSONResponse({
+        "status": "success",
+        "model_response": "In a Linux environment, running the `id` command displays your user credentials, such as: `uid=1000(user) gid=1000(user)`. Would you like assistance with bash scripting?"
+    })
 
 
 if __name__ == "__main__":

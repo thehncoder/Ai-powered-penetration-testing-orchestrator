@@ -182,8 +182,11 @@ def run_benchmark():
     tp = fp = tn = fn = 0
 
     print("=" * 76)
-    print("  📊 AI PENETRATION TESTING ORCHESTRATOR - BENCHMARK EVALUATION")
-    print(f"  Corpus: {corpus['benchmark_metadata']['corpus_name']} (v{corpus['benchmark_metadata']['version']})")
+    print("  📊 AI PENETRATION TESTING ORCHESTRATOR - SYNTHETIC BENCHMARK EVALUATION")
+    print(f"  Corpus:  {corpus['benchmark_metadata']['corpus_name']} (v{corpus['benchmark_metadata']['version']})")
+    print("  Harness: Defined Synthetic Response Corpus & Rule-Based Test Harness")
+    print("  Notice:  Evaluates deterministic rule/oracle behavior on controlled test cases;")
+    print("           does NOT constitute proof of 100% accuracy on real applications.")
     print("=" * 76)
 
     for tc in corpus["test_cases"]:
@@ -230,10 +233,18 @@ def run_benchmark():
     print(f"  Balanced F1-Score:        {f1:.3f}")
     print(f"  Overall Corpus Accuracy:  {accuracy * 100.0:.1f}%")
     print("=" * 76)
+    print("  ⚠️  Notice: The 30/30 result is measured strictly against this defined")
+    print("     synthetic response corpus and rule-based evaluation harness.")
+    print("     It is NOT proof of 100% accuracy against real applications.")
+    print("=" * 76)
 
     # Save detailed evaluation report
     report_data = {
-        "benchmark_metadata": corpus["benchmark_metadata"],
+        "benchmark_metadata": {
+            **corpus["benchmark_metadata"],
+            "evaluation_type": "synthetic_corpus_rule_based_harness",
+            "scope_notice": "Evaluated against defined synthetic response corpus. Does not constitute proof of 100% accuracy against arbitrary live production targets."
+        },
         "metrics": {
             "total_cases": total,
             "true_positives": tp,
