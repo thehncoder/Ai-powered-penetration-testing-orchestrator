@@ -8,7 +8,7 @@
 [![Pydantic v2](https://img.shields.io/badge/Pydantic-v2.11+-E92063.svg?style=for-the-badge&logo=pydantic&logoColor=white)](https://docs.pydantic.dev/)
 [![CVSS v3.1](https://img.shields.io/badge/CVSS-v3.1_FIRST_Spec-blue.svg?style=for-the-badge)](https://www.first.org/cvss/)
 [![CI](https://github.com/thehncoder/Ai-powered-penetration-testing-orchestrator/actions/workflows/ci.yml/badge.svg)](https://github.com/thehncoder/Ai-powered-penetration-testing-orchestrator/actions)
-[![Tests](https://img.shields.io/badge/Unit%20Tests-38%2F38%20Passing-success.svg?style=for-the-badge&logo=pytest&logoColor=white)]()
+[![Tests](https://img.shields.io/badge/Unit%20Tests-46%2F46%20Passing-success.svg?style=for-the-badge&logo=pytest&logoColor=white)]()
 [![Benchmark](https://img.shields.io/badge/Corpus%20Benchmark-30%2F30%20Verified-brightgreen.svg?style=for-the-badge)](BENCHMARK_RESULTS.md)
 [![Evidence Integrity](https://img.shields.io/badge/Evidence-SHA--256_Integrity-blue.svg?style=for-the-badge)]()
 [![Validation](https://img.shields.io/badge/Validation-Differential_Oracle-brightgreen.svg?style=for-the-badge)]()
@@ -263,20 +263,20 @@ python -m pytest tests/ -v
 ```
 ```text
 ============================= test session starts =============================
-collected 38 items
+collected 46 items
 
-tests/test_ai_sec_agent.py (12 tests) ............                       [ 31%]
-tests/test_benchmark_corpus.py (1 test) .                                [ 34%]
-tests/test_cvss_engine.py (3 tests) ...                                  [ 42%]
-tests/test_false_negative_prevention.py (6 tests) ......                 [ 57%]
-tests/test_false_positive_elimination.py (4 tests) ....                  [ 68%]
-tests/test_full_pipeline.py (1 test) .                                   [ 71%]
-tests/test_quality_gate.py (2 tests) ..                                  [ 76%]
-tests/test_regression_engine.py (7 tests) .......                        [ 94%]
+tests/test_ai_sec_agent.py (20 tests) ....................                [ 43%]
+tests/test_benchmark_corpus.py (1 test) .                                [ 45%]
+tests/test_cvss_engine.py (3 tests) ...                                  [ 52%]
+tests/test_false_negative_prevention.py (6 tests) ......                 [ 65%]
+tests/test_false_positive_elimination.py (4 tests) ....                  [ 73%]
+tests/test_full_pipeline.py (1 test) .                                   [ 76%]
+tests/test_quality_gate.py (2 tests) ..                                  [ 80%]
+tests/test_regression_engine.py (7 tests) .......                        [ 95%]
 tests/test_reporter_exploit_narrative.py (1 test) .                      [ 97%]
 tests/test_threat_model.py (1 test) .                                    [100%]
 
-============================= 38 passed in 2.44s ==============================
+============================= 46 passed in 2.26s ==============================
 ```
 
 ### 6. Ground-Truth Benchmark Evaluation
