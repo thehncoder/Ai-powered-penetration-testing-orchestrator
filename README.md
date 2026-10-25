@@ -2,7 +2,7 @@
 ### Autonomous Multi-Agent VAPT Pipeline with STRIDE Threat Modeling & Differential Oracle Quality Gating
 **Lead Architect & Security Researcher: Harshit Nigam**
 
-[![Author: Harshit Nigam](https://img.shields.io/badge/Architect-Harshit%20Nigam-00F0FF.svg?style=for-the-badge&logo=github)](https://github.com/mrhn)
+[![Author: Harshit Nigam](https://img.shields.io/badge/Architect-Harshit%20Nigam-00F0FF.svg?style=for-the-badge&logo=github)](https://github.com/thehncoder)
 [![Python 3.12](https://img.shields.io/badge/Python-3.12+-3776AB.svg?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Pydantic v2](https://img.shields.io/badge/Pydantic-v2.11+-E92063.svg?style=for-the-badge&logo=pydantic&logoColor=white)](https://docs.pydantic.dev/)
@@ -227,8 +227,8 @@ $$\text{Threat Model} = \bigcup_{e \in \text{Endpoints}} \text{STRIDE}(e.\text{m
 ### 2. Installation
 ```bash
 # Clone the repository
-git clone https://github.com/mrhn/ai-powered-penetration-testing-orchestrator.git
-cd ai-powered-penetration-testing-orchestrator
+git clone https://github.com/thehncoder/Ai-powered-penetration-testing-orchestrator.git
+cd Ai-powered-penetration-testing-orchestrator
 
 # Install dependencies
 pip install -r requirements.txt
@@ -349,7 +349,7 @@ ai-powered-penetration-testing-orchestrator/
 **Harshit Nigam**
 - **Specialization**: Autonomous Cyber Systems, Offensive Security Engineering, Multi-Agent Orchestration, Cloud Security & Vulnerability Research.
 - **Portfolio**: [mrhn.in](https://mrhn.in)
-- **GitHub**: [github.com/mrhn](https://github.com/mrhn)
+- **GitHub**: [github.com/thehncoder](https://github.com/thehncoder)
 
 ---
 
