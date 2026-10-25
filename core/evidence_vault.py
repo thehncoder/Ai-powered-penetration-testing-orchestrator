@@ -1,6 +1,6 @@
 """
 Evidence Vault for Multi-Agent Penetration Testing.
-Cryptographically records, hashes, and validates vulnerability proofs to prevent hallucination.
+Cryptographically records, hashes, and validates raw HTTP wire artifacts to guarantee evidence integrity and reproducibility.
 """
 
 import hashlib

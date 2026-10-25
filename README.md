@@ -8,11 +8,11 @@
 [![Pydantic v2](https://img.shields.io/badge/Pydantic-v2.11+-E92063.svg?style=for-the-badge&logo=pydantic&logoColor=white)](https://docs.pydantic.dev/)
 [![CVSS v3.1](https://img.shields.io/badge/CVSS-v3.1_FIRST_Spec-blue.svg?style=for-the-badge)](https://www.first.org/cvss/)
 [![Tests](https://img.shields.io/badge/Unit%20Tests-19%2F19%20Passing-success.svg?style=for-the-badge&logo=pytest&logoColor=white)]()
-[![Zero Hallucinations](https://img.shields.io/badge/Evidence-SHA--256_Verified-success.svg?style=for-the-badge)]()
-[![Accuracy](https://img.shields.io/badge/Precision-0%25%20FP%20%7C%200%25%20FN-brightgreen.svg?style=for-the-badge)]()
+[![Evidence Integrity](https://img.shields.io/badge/Evidence-SHA--256_Integrity-blue.svg?style=for-the-badge)]()
+[![Validation](https://img.shields.io/badge/Validation-Differential_Oracle-brightgreen.svg?style=for-the-badge)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-> **Architectural Abstract**: An enterprise-grade autonomous penetration testing orchestrator engineered by **Harshit Nigam**. Designed to conduct complete, end-to-end Vulnerability Assessment & Penetration Testing (VAPT) workflows—from passive and active reconnaissance to automated STRIDE threat modeling, multi-agent exploit verification, self-healing quality gating, FIRST CVSS v3.1 calculation, and CI/CD remediation regression testing. Built with a **Differential Oracle Engine** that eliminates both false positives (e.g. SPA catch-all traps) and false negatives across modern multi-cloud and distributed API architectures.
+> **Architectural Abstract**: An enterprise-grade autonomous penetration testing orchestrator engineered by **Harshit Nigam**. Designed to conduct complete, end-to-end Vulnerability Assessment & Penetration Testing (VAPT) workflows—from passive and active reconnaissance to automated STRIDE threat modeling, multi-agent exploit verification, self-healing quality gating, FIRST CVSS v3.1 calculation, and CI/CD remediation regression testing. Built with a **Differential Oracle Engine** engineered to significantly suppress common false positives (e.g. SPA catch-all traps, WAF challenge reflections) and mitigate false negatives across modern multi-cloud and distributed API architectures.
 
 ---
 
@@ -21,12 +21,12 @@
 Traditional vulnerability scanners (e.g., legacy DAST tools) suffer from two chronic industry bottlenecks:
 1. **False-Positive Floods**: Naive pattern-matching flags `200 OK` status codes or generic web pages as vulnerabilities—especially in modern Single-Page Applications (React, Vue, Angular) configured with wildcard catch-all routing (`try_files $uri /index.html`).
 2. **False-Negative Blindspots**: When scanners over-filter to eliminate noise, they miss genuine vulnerabilities that render in non-standard formats (e.g. internal Redis daemons, Docker APIs, cloud metadata endpoints, or HTML-rendered identity views).
-3. **AI Hallucinations**: Naive LLM security wrappers claim vulnerabilities without reproducible proofs or tamper-resistant evidence.
+3. **Ungrounded AI Hypotheses**: Naive LLM wrappers claim vulnerabilities without reproducible proofs, tamper-resistant evidence, or executable verification steps.
 
 ### The Solution: Differential Oracle Multi-Agent Architecture
 Developed by **Harshit Nigam**, this orchestrator coordinates a five-wave autonomous pipeline governed by a **Differential Oracle Engine** and an immutable cryptographic **Evidence Vault**:
-- **0% Hallucinations**: Every vulnerability finding is cryptographically bound to a SHA-256 hash of the exact HTTP request/response wire artifact and a standalone executable `curl` reproduction command.
-- **Dual Precision (0% False Positives & 0% False Negatives)**: Dynamic Soft-404 canary calibration distinguishes SPA catch-all pages from genuine endpoints, while multi-cloud IMDS tokens (AWS, GCP, Azure, DigitalOcean) and internal daemon fingerprints guarantee real vulnerabilities are never missed.
+- **Tamper-Evident Evidence**: Every vulnerability finding is cryptographically bound to a SHA-256 integrity hash of the raw HTTP request/response wire artifact and an executable `curl` reproduction command, ensuring forensic auditability.
+- **Dual-Vector Filtering**: Dynamic Soft-404 canary calibration separates SPA catch-all responses from genuine endpoints, while multi-cloud IMDS signatures (AWS, GCP, Azure, DigitalOcean) and internal daemon fingerprints expand detection coverage across diverse deployment environments.
 - **Battle-Tested Provenance**: The core orchestration paradigm placed **9th with a perfect 37/37 clear** in Hack The Box's MCP TryOut competition.
 
 ---
@@ -110,15 +110,15 @@ Developed by **Harshit Nigam**, this orchestrator coordinates a five-wave autono
 
 ---
 
-## 🎯 Dual Precision: Eliminating False Positives & False Negatives
+## 🎯 Precision Engineering: False-Positive Suppression & Coverage Expansion
 
-One of the greatest engineering feats in this project is solving the classic **Precision vs. Recall dilemma** in automated penetration testing:
+Automated vulnerability assessment faces a fundamental **Precision vs. Recall tradeoff**: over-eager scanners generate noise on SPA catch-alls and login screens, while overly strict filters miss non-standard APIs and multi-cloud metadata endpoints. The Differential Oracle Engine addresses this through structured heuristics, dynamic baselining, and evidence validation:
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────┐
 │                      DIFFERENTIAL ORACLE TESTING ENGINE                          │
 ├────────────────────────────────────────┬─────────────────────────────────────────┤
-│    FALSE-POSITIVE ELIMINATION (0% FP)  │   FALSE-NEGATIVE PREVENTION (0% FN)     │
+│       FALSE-POSITIVE SUPPRESSION       │      DETECTION COVERAGE EXPANSION       │
 ├────────────────────────────────────────┼─────────────────────────────────────────┤
 │ • Soft-404 Canary Calibration: Probes   │ • Multi-Cloud IMDS Coverage: Recognizes │
 │   random GUID paths before crawling.   │   AWS (IMDSv1 & v2 tokens), GCP         │
@@ -208,13 +208,13 @@ $$\text{Threat Model} = \bigcup_{e \in \text{Endpoints}} \text{STRIDE}(e.\text{m
 | **Lead Architect** | **Harshit Nigam** | PortSwigger | OWASP | ProjectDiscovery | Various |
 | **Autonomous 5-Wave Pipeline** | ✅ **Native** | ❌ Manual/Semi | ❌ Manual | ❌ Scripted | ❌ Prompt-only |
 | **Soft-404 / SPA Calibration** | ✅ **Dynamic Canary** | ⚠️ Partial | ❌ Manual | ⚠️ Regex rule | ❌ Hallucinates |
-| **Cryptographic Evidence Vault** | ✅ **SHA-256 Proofs** | ❌ No Hash | ❌ No Hash | ❌ No Hash | ❌ Zero proof |
+| **Cryptographic Evidence Vault** | ✅ **SHA-256 Wire Hash** | ❌ No Hash | ❌ No Hash | ❌ No Hash | ❌ Unrecorded |
 | **STRIDE Threat Modeling** | ✅ **Automated** | ❌ None | ❌ None | ❌ None | ⚠️ Unreliable |
 | **CI/CD Regression Engine** | ✅ **Automated** | ⚠️ Add-on | ⚠️ Add-on | ⚠️ Template-based | ❌ None |
 | **FIRST CVSS v3.1 Engine** | ✅ **Built-in Spec** | ✅ Yes | ⚠️ Basic | ⚠️ Static | ❌ Approximate |
 | **Plain-English Explanations** | ✅ **ELI5 + Exploit** | ❌ Technical only | ❌ Technical only | ❌ Technical only | ⚠️ Unverified |
 | **OWASP LLM Top 10 Auditing** | ✅ **Prompt Inj / Tools** | ❌ No | ❌ No | ⚠️ Experimental | ❌ Self-bias |
-| **Kali Linux Manual Guides** | ✅ **Terminal Commands** | ❌ No | ❌ No | ❌ No | ❌ Hallucinates |
+| **Kali Linux Manual Guides** | ✅ **Terminal Commands** | ❌ No | ❌ No | ❌ No | ❌ None |
 
 ---
 
@@ -277,7 +277,7 @@ tests/test_false_positive_elimination.py::test_quality_gate_rejects_admin_login_
 tests/test_false_positive_elimination.py::test_ai_brain_rejects_unverified_metadata_for_ssrf PASSED [ 63%]
 tests/test_false_positive_elimination.py::test_quality_gate_and_brain_reject_waf_challenge_sqli_false_positive PASSED [ 68%]
 tests/test_full_pipeline.py::test_full_pipeline_run PASSED               [ 73%]
-tests/test_quality_gate.py::test_quality_gate_rejects_hallucination_without_evidence PASSED [ 78%]
+tests/test_quality_gate.py::test_quality_gate_rejects_unrecorded_or_tampered_evidence PASSED [ 78%]
 tests/test_quality_gate.py::test_quality_gate_accepts_valid_evidence PASSED [ 84%]
 tests/test_regression_engine.py::test_regression_detects_remediation PASSED [ 89%]
 tests/test_reporter_exploit_narrative.py::test_reporter_plain_english_and_exploit_narrative PASSED [ 94%]
@@ -333,9 +333,9 @@ ai-powered-penetration-testing-orchestrator/
 ├── reports/                   # Generated assessment deliverables (HTML, MD, JSON)
 └── tests/
     ├── test_cvss_engine.py    # Unit tests for CVSS formulas & severity thresholds
-    ├── test_quality_gate.py   # Unit tests for proof verification & anti-hallucination
-    ├── test_false_positive_elimination.py # Tests verifying 0% False Positives
-    ├── test_false_negative_prevention.py  # Tests verifying 0% False Negatives
+    ├── test_quality_gate.py   # Unit tests for evidence verification & quality thresholds
+    ├── test_false_positive_elimination.py # Tests verifying false-positive suppression (SPA, WAF)
+    ├── test_false_negative_prevention.py  # Tests verifying detection coverage (multi-cloud, IDOR)
     ├── test_threat_model.py   # Unit tests for STRIDE threat synthesis
     ├── test_regression_engine.py # Unit tests for remediation validation
     ├── test_reporter_exploit_narrative.py # Tests verifying Plain-English narratives

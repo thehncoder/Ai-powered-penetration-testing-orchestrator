@@ -30,7 +30,7 @@ class QualityGateStatus(str, Enum):
 
 
 class ConfidenceLevel(str, Enum):
-    CERTAIN = "CERTAIN"      # 100% verified with deterministic exploit evidence
+    CERTAIN = "CERTAIN"      # High confidence: validated with deterministic exploit evidence & differential oracle
     FIRM = "FIRM"            # Strong payload reflection / response delta
     TENTATIVE = "TENTATIVE"  # Heuristic inference, requires manual triage
 

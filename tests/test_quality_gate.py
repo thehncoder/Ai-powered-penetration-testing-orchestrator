@@ -14,7 +14,7 @@ from core.schemas import (
 )
 
 
-def test_quality_gate_rejects_hallucination_without_evidence():
+def test_quality_gate_rejects_unrecorded_or_tampered_evidence():
     engine = QualityGateEngine(min_coverage_threshold=80.0)
     vault = EvidenceVault()
 
@@ -43,7 +43,7 @@ def test_quality_gate_rejects_hallucination_without_evidence():
         affected_url="http://test.local/api/search",
         cvss=CVSSEngine.get_template_metrics("sqli"),
         confidence=ConfidenceLevel.TENTATIVE,
-        description="Hallucinated finding with forged hash",
+        description="Finding with forged or unrecorded hash",
         evidence=fake_evidence,
         remediation_advice="None",
         discovered_by_agent="AgentA"

@@ -17,7 +17,7 @@ from core.evidence_vault import EvidenceVault
 
 
 class QualityGateEngine:
-    """Enforces coverage thresholds and eliminates LLM hallucinations before report synthesis."""
+    """Enforces coverage thresholds and filters unverified or ungrounded model outputs before report synthesis."""
 
     def __init__(self, min_coverage_threshold: float = 85.0):
         self.min_coverage_threshold = min_coverage_threshold
@@ -74,7 +74,7 @@ class QualityGateEngine:
         Quality gate for Wave 3/4 (Specialist Execution & Coverage Audit).
         Returns:
           - QualityGateResult
-          - Verified list of findings (hallucinations/unproven rejected)
+          - Verified list of findings (unsubstantiated/unproven candidates rejected)
           - List of under-tested endpoints requiring re-dispatch
         """
         total_endpoints = len(endpoints)
