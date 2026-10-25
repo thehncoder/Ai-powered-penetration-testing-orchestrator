@@ -116,3 +116,64 @@ def test_ai_brain_rejects_unverified_metadata_for_ssrf():
         category="SSRF"
     )
     assert res_valid["is_vulnerable"] is True
+
+
+def test_quality_gate_and_brain_reject_waf_challenge_sqli_false_positive():
+    """Verify that Cloudflare / WAF 403 challenge pages echoing query params are never flagged as SQLi."""
+    brain = AIBrain()
+    cloudflare_challenge_html = """
+    <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
+    <script>cUPMDTk: "/?id=1' UNION SELECT 1, 'vapt', 3 --"</script>
+    </head><body><div id="cf-chl-widget">Please stand by while we verify your browser</div></body></html>
+    """
+    
+    # 1. AIBrain must reject WAF challenge
+    res = brain.analyze_vulnerability_hypothesis(
+        endpoint_url="http://mrhn.in",
+        param="id",
+        payload="1' UNION SELECT 1, 'vapt', 3 --",
+        status_code=403,
+        response_body=cloudflare_challenge_html,
+        category="SQLI"
+    )
+    assert res["is_vulnerable"] is False
+    assert "WAF challenge" in res["reasoning"]
+
+    # 2. Quality Gate must reject findings with WAF challenge proofs
+    vault = EvidenceVault()
+    ev = vault.record_evidence(
+        request_method="GET",
+        request_url="http://mrhn.in?id=1'%20UNION%20SELECT%201,%20'vapt',%203%20--",
+        response_status_code=403,
+        payload_applied="1' UNION SELECT 1, 'vapt', 3 --",
+        response_body=cloudflare_challenge_html
+    )
+    cvss = CVSSEngine.get_template_metrics("sqli")
+    finding = VulnerabilityFinding(
+        finding_id="VULN-SQLI-001",
+        title="SQL Injection in parameter 'id'",
+        severity=cvss.severity,
+        category="INJECTION",
+        owasp_top10="A03:2021-Injection",
+        cwe_id="CWE-89",
+        affected_url="http://mrhn.in",
+        http_method="GET",
+        affected_parameter="id",
+        cvss=cvss,
+        confidence=ConfidenceLevel.CERTAIN,
+        description="Hypothetical false positive SQLi",
+        evidence=ev,
+        remediation_advice="Enforce parameterized queries",
+        discovered_by_agent="WebVulnAgent"
+    )
+
+    qg_engine = QualityGateEngine()
+    gate_res, verified, _ = qg_engine.evaluate_testing_gate(
+        endpoints=[ServiceEndpoint(url="http://mrhn.in", method="GET")],
+        findings=[finding],
+        vault=vault
+    )
+    assert len(verified) == 0
+    assert "waf_challenge_block_false_positive" in gate_res.rejection_reasons
+

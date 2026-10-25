@@ -157,12 +157,12 @@ def test_union_based_sqli_reflection_not_missed():
     """Verify that UNION-based SQL injection with canary reflection is recognized even if error messages are off."""
     brain = AIBrain(provider="autonomous")
     union_response = """
-    {"status": "ok", "items": [{"id": 1, "name": "Standard Item"}, {"id": 99, "name": "vapt"}]}
+    {"status": "ok", "items": [{"id": 1, "name": "Standard Item"}, {"id": 99, "name": "vapt_sqli_probe_extract"}]}
     """
     analysis = brain.analyze_vulnerability_hypothesis(
         endpoint_url="https://target.corp/api/search",
         param="q",
-        payload="1' UNION SELECT 1, 'vapt' --",
+        payload="1' UNION SELECT 1, 'vapt_sqli_probe_extract' --",
         status_code=200,
         response_body=union_response,
         category="SQLI"

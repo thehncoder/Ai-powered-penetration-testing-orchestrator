@@ -1,8 +1,8 @@
 {
-  "report_id": "VAPT-REPORT-DLD_SRMIST_EDU_IN-20261025_104039",
-  "generated_at": "2026-10-25T10:40:39.127150",
+  "report_id": "VAPT-REPORT-MRHN_IN-20261025_113814",
+  "generated_at": "2026-10-25T11:38:14.015376Z",
   "target": {
-    "target_url": "https://dld.srmist.edu.in",
+    "target_url": "http://mrhn.in",
     "allowed_domains": [],
     "excluded_paths": [
       "/logout",
@@ -15,25 +15,33 @@
     "custom_headers": {}
   },
   "summary": {
-    "total_findings": 1,
+    "total_findings": 0,
     "critical_count": 0,
     "high_count": 0,
-    "medium_count": 1,
+    "medium_count": 0,
     "low_count": 0,
     "info_count": 0,
-    "mean_cvss": 5.3,
+    "mean_cvss": 0.0,
     "coverage_rate": 100.0
   },
-  "executive_overview": "Target System: https://dld.srmist.edu.in\nOverall Posture: MODERATE RISK\nMean CVSS Base Score: 5.3/10.0\nAttack Surface Test Coverage: 100.0%\nThe assessment revealed 1 Medium-severity flaws. Remediation should be scheduled within standard sprint cycles.",
+  "executive_overview": "Target System: http://mrhn.in\nOverall Posture: SECURE / LOW RISK\nMean CVSS Base Score: 0.0/10.0\nAttack Surface Test Coverage: 100.0%\nNo critical or high-risk exploit vectors were discovered. Basic defense-in-depth hygiene should be maintained.",
   "reconnaissance": {
-    "target_domain": "dld.srmist.edu.in",
+    "target_domain": "mrhn.in",
     "ip_addresses": [
-      "103.4.223.32"
+      "172.67.135.186"
     ],
     "subdomains": [
-      "dld.srmist.edu.in"
+      "mrhn.in"
     ],
     "open_ports": [
+      {
+        "port": 80,
+        "protocol": "tcp",
+        "service_name": "http",
+        "version": null,
+        "banner": null,
+        "cpe": null
+      },
       {
         "port": 443,
         "protocol": "tcp",
@@ -43,20 +51,28 @@
         "cpe": null
       },
       {
-        "port": 80,
+        "port": 8080,
         "protocol": "tcp",
         "service_name": "http",
+        "version": null,
+        "banner": null,
+        "cpe": null
+      },
+      {
+        "port": 8443,
+        "protocol": "tcp",
+        "service_name": "https",
         "version": null,
         "banner": null,
         "cpe": null
       }
     ],
     "technologies": {
-      "web_server": "Nginx"
+      "cdn_proxy": "Cloudflare Edge"
     },
     "endpoints": [
       {
-        "url": "https://dld.srmist.edu.in",
+        "url": "http://mrhn.in",
         "method": "GET",
         "parameters": [],
         "headers": {},
@@ -71,11 +87,11 @@
         "tested_vectors": []
       },
       {
-        "url": "https://dld.srmist.edu.in/",
+        "url": "http://mrhn.in/",
         "method": "GET",
         "parameters": [],
         "headers": {},
-        "auth_required": false,
+        "auth_required": true,
         "content_type": null,
         "surface_category": "GENERAL",
         "tested_by_agents": [
@@ -86,11 +102,11 @@
         "tested_vectors": []
       },
       {
-        "url": "https://dld.srmist.edu.in/robots.txt",
+        "url": "http://mrhn.in/robots.txt",
         "method": "GET",
         "parameters": [],
         "headers": {},
-        "auth_required": false,
+        "auth_required": true,
         "content_type": null,
         "surface_category": "GENERAL",
         "tested_by_agents": [
@@ -101,11 +117,11 @@
         "tested_vectors": []
       },
       {
-        "url": "https://dld.srmist.edu.in/sitemap.xml",
+        "url": "http://mrhn.in/sitemap.xml",
         "method": "GET",
         "parameters": [],
         "headers": {},
-        "auth_required": false,
+        "auth_required": true,
         "content_type": null,
         "surface_category": "GENERAL",
         "tested_by_agents": [
@@ -116,11 +132,11 @@
         "tested_vectors": []
       },
       {
-        "url": "https://dld.srmist.edu.in/api",
+        "url": "http://mrhn.in/api",
         "method": "GET",
         "parameters": [],
         "headers": {},
-        "auth_required": false,
+        "auth_required": true,
         "content_type": null,
         "surface_category": "API",
         "tested_by_agents": [
@@ -131,11 +147,11 @@
         "tested_vectors": []
       },
       {
-        "url": "https://dld.srmist.edu.in/api/v1",
+        "url": "http://mrhn.in/api/v1",
         "method": "GET",
         "parameters": [],
         "headers": {},
-        "auth_required": false,
+        "auth_required": true,
         "content_type": null,
         "surface_category": "API",
         "tested_by_agents": [
@@ -146,11 +162,11 @@
         "tested_vectors": []
       },
       {
-        "url": "https://dld.srmist.edu.in/health",
+        "url": "http://mrhn.in/health",
         "method": "GET",
         "parameters": [],
         "headers": {},
-        "auth_required": false,
+        "auth_required": true,
         "content_type": null,
         "surface_category": "GENERAL",
         "tested_by_agents": [
@@ -161,11 +177,11 @@
         "tested_vectors": []
       },
       {
-        "url": "https://dld.srmist.edu.in/login",
+        "url": "http://mrhn.in/login",
         "method": "GET",
         "parameters": [],
         "headers": {},
-        "auth_required": false,
+        "auth_required": true,
         "content_type": null,
         "surface_category": "AUTH",
         "tested_by_agents": [
@@ -176,11 +192,11 @@
         "tested_vectors": []
       },
       {
-        "url": "https://dld.srmist.edu.in/admin",
+        "url": "http://mrhn.in/admin",
         "method": "GET",
         "parameters": [],
         "headers": {},
-        "auth_required": false,
+        "auth_required": true,
         "content_type": null,
         "surface_category": "ADMIN",
         "tested_by_agents": [
@@ -191,11 +207,11 @@
         "tested_vectors": []
       },
       {
-        "url": "https://dld.srmist.edu.in/docs",
+        "url": "http://mrhn.in/docs",
         "method": "GET",
         "parameters": [],
         "headers": {},
-        "auth_required": false,
+        "auth_required": true,
         "content_type": null,
         "surface_category": "GENERAL",
         "tested_by_agents": [
@@ -206,11 +222,11 @@
         "tested_vectors": []
       },
       {
-        "url": "https://dld.srmist.edu.in/openapi.json",
+        "url": "http://mrhn.in/openapi.json",
         "method": "GET",
         "parameters": [],
         "headers": {},
-        "auth_required": false,
+        "auth_required": true,
         "content_type": null,
         "surface_category": "API",
         "tested_by_agents": [
@@ -222,69 +238,89 @@
       }
     ],
     "server_headers": {
-      "server": "nginx",
-      "date": "Sun, 25 Oct 2026 10:40:23 GMT",
-      "content-type": "text/html",
-      "last-modified": "Mon, 28 Sep 2026 08:35:16 GMT",
+      "date": "Sun, 25 Oct 2026 11:37:19 GMT",
+      "content-type": "text/html; charset=UTF-8",
       "transfer-encoding": "chunked",
-      "connection": "keep-alive",
-      "vary": "Accept-Encoding",
-      "etag": "W/\"6aba26c4-492\"",
+      "connection": "close",
+      "accept-ch": "Sec-CH-UA-Bitness, Sec-CH-UA-Arch, Sec-CH-UA-Full-Version, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Platform, Sec-CH-UA, UA-Bitness, UA-Arch, UA-Full-Version, UA-Mobile, UA-Model, UA-Platform-Version, UA-Platform, UA",
+      "cf-mitigated": "challenge",
+      "content-security-policy": "default-src 'none'; script-src 'nonce-Xfq8dTYsX7EsCmc9rnbAIC' 'unsafe-eval' https://challenges.cloudflare.com; script-src-attr 'none'; style-src 'unsafe-inline'; img-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com; frame-src 'self' https://challenges.cloudflare.com blob:; child-src 'self' https://challenges.cloudflare.com blob:; worker-src blob:; form-action http: https:; base-uri 'self'",
+      "server": "cloudflare",
+      "critical-ch": "Sec-CH-UA-Bitness, Sec-CH-UA-Arch, Sec-CH-UA-Full-Version, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Platform, Sec-CH-UA, UA-Bitness, UA-Arch, UA-Full-Version, UA-Mobile, UA-Model, UA-Platform-Version, UA-Platform, UA",
+      "cross-origin-embedder-policy": "require-corp",
+      "cross-origin-opener-policy": "same-origin",
+      "cross-origin-resource-policy": "same-origin",
+      "origin-agent-cluster": "?1",
+      "permissions-policy": "accelerometer=(),camera=(),clipboard-read=(),clipboard-write=(),geolocation=(),gyroscope=(),hid=(),magnetometer=(),microphone=(),payment=(),publickey-credentials-get=(),screen-wake-lock=(),serial=(),sync-xhr=(),usb=(),xr-spatial-tracking=*",
+      "referrer-policy": "same-origin",
+      "server-timing": "chlray;desc=\"a500edbb9be2448a\"",
+      "x-content-type-options": "nosniff",
       "x-frame-options": "SAMEORIGIN",
-      "content-encoding": "gzip"
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=7BJgL%2BMVB1Vl7LEgzcLAGwAcIWATRqj%2BZt0Q5WDIwYJ3j5lIX15P8YJlQmP3IEQOW1g5RRQJc7%2BIB1oM%2BtWF%2FgUPezgGmCfHbckFSlwiKt9BBF52Jd2BlM8KwX3t3YwERHRV1%2F2s\"}]}",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "content-encoding": "gzip",
+      "cf-ray": "a500edbb9be2448a-SIN",
+      "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "waf_detected": null,
-    "timestamp": "2026-10-25T10:40:23.786414"
+    "waf_detected": "Cloudflare",
+    "timestamp": "2026-10-25T11:37:19.919179Z"
   },
   "quality_gates": [
     {
       "wave_name": "Wave 1: Surface Reconnaissance",
-      "gate_timestamp": "2026-10-25T10:40:23.786414",
+      "gate_timestamp": "2026-10-25T11:37:19.919179Z",
       "status": "PASSED",
       "coverage_score": 100.0,
-      "total_attack_surfaces": 13,
-      "attack_surfaces_tested": 13,
+      "total_attack_surfaces": 15,
+      "attack_surfaces_tested": 15,
       "under_tested_surfaces": [],
       "findings_submitted": 0,
       "findings_verified": 0,
       "findings_rejected": 0,
       "rejection_reasons": {},
       "quality_notes": [
-        "Discovered 2 services and 11 endpoints.",
-        "Identified stack technologies: web_server"
+        "Discovered 4 services and 11 endpoints.",
+        "Identified stack technologies: cdn_proxy",
+        "WAF detected: Cloudflare. Rate-limiting throttles advised."
       ]
     },
     {
       "wave_name": "Wave 4: Coverage Verification & Quality Gate",
-      "gate_timestamp": "2026-10-25T10:40:39.126642",
+      "gate_timestamp": "2026-10-25T11:38:14.014807Z",
       "status": "PASSED",
       "coverage_score": 100.0,
-      "total_attack_surfaces": 11,
-      "attack_surfaces_tested": 11,
+      "total_attack_surfaces": 25,
+      "attack_surfaces_tested": 25,
       "under_tested_surfaces": [],
-      "findings_submitted": 1,
-      "findings_verified": 1,
+      "findings_submitted": 0,
+      "findings_verified": 0,
       "findings_rejected": 0,
       "rejection_reasons": {},
       "quality_notes": [
         "Coverage audit passed with 100.0% attack surface test density.",
-        "Verified 1 evidence-backed findings across all specialist agents."
+        "Verified 0 evidence-backed findings across all specialist agents."
       ]
     }
   ],
   "threat_model": {
-    "target_host": "dld.srmist.edu.in",
-    "total_threats": 5,
+    "target_host": "mrhn.in",
+    "total_threats": 6,
     "threats_by_category": {
       "Spoofing": 1,
+      "Tampering": 1,
       "Repudiation": 1,
       "Information Disclosure": 1,
       "Denial of Service": 1,
       "Elevation of Privilege": 1
     },
     "high_risk_surfaces": [
-      "https://dld.srmist.edu.in/admin",
-      "https://dld.srmist.edu.in/login"
+      "http://mrhn.in/upload",
+      "http://mrhn.in/api/user/profile",
+      "http://mrhn.in/api/view",
+      "http://mrhn.in/api/admin/config",
+      "http://mrhn.in/admin",
+      "http://mrhn.in/login",
+      "http://mrhn.in/dashboard"
     ],
     "threats": [
       {
@@ -293,7 +329,7 @@
         "title": "Authentication Token Forgery & Identity Spoofing",
         "description": "Adversaries may forge or tamper with authentication bearer tokens or session cookies to impersonate legitimate users.",
         "affected_components": [
-          "https://dld.srmist.edu.in/login"
+          "http://mrhn.in/login"
         ],
         "potential_impact": "Full account takeover and unauthorized transactional capability.",
         "risk_level": "HIGH",
@@ -302,12 +338,33 @@
         "cwe_id": "CWE-287"
       },
       {
+        "threat_id": "THREAT-STRIDE-T01",
+        "category": "Tampering",
+        "title": "Input Parameter Manipulation & Query Tampering",
+        "description": "Unsanitized query parameters or request bodies could allow adversaries to tamper with database queries or application state.",
+        "affected_components": [
+          "http://mrhn.in/api/users",
+          "http://mrhn.in/api/user/profile",
+          "http://mrhn.in/api/search",
+          "http://mrhn.in/api/echo",
+          "http://mrhn.in/api/fetch"
+        ],
+        "potential_impact": "Unauthorized data modification, unauthorized balance alteration, or state corruption.",
+        "risk_level": "HIGH",
+        "mitigation_strategy": "Enforce strict Pydantic/JSON schema validation on all inputs; utilize parameterized ORM queries; apply cryptographic HMACs for stateful parameters.",
+        "owasp_mapping": "A03:2021-Injection",
+        "cwe_id": "CWE-20"
+      },
+      {
         "threat_id": "THREAT-STRIDE-R01",
         "category": "Repudiation",
         "title": "Insufficient Transaction Audit Logging & Non-Repudiation Deficit",
         "description": "State-altering API calls may lack tamper-evident forensic logging, allowing malicious actors to deny performing actions.",
         "affected_components": [
-          "https://dld.srmist.edu.in/login"
+          "http://mrhn.in/login",
+          "http://mrhn.in/api/user/profile",
+          "http://mrhn.in/api/view",
+          "http://mrhn.in/upload"
         ],
         "potential_impact": "Inability to trace forensic origin of data manipulation, failed compliance audits, disputed chargebacks.",
         "risk_level": "MEDIUM",
@@ -321,7 +378,7 @@
         "title": "Technology Stack Fingerprinting & Verbose Error Leakage",
         "description": "Server response headers, stack traces, and unauthenticated metadata endpoints disclose underlying framework and runtime versions.",
         "affected_components": [
-          "dld.srmist.edu.in"
+          "mrhn.in"
         ],
         "potential_impact": "Assists attackers in tailoring zero-day exploits targeting exact component versions.",
         "risk_level": "MEDIUM",
@@ -335,9 +392,11 @@
         "title": "Unthrottled API Resource Exhaustion & Heavy Query DoS",
         "description": "Lack of explicit rate-limiting tokens allows concurrent high-frequency queries to exhaust backend threads and database connection pools.",
         "affected_components": [
-          "https://dld.srmist.edu.in/api",
-          "https://dld.srmist.edu.in/api/v1",
-          "https://dld.srmist.edu.in/openapi.json"
+          "http://mrhn.in/api",
+          "http://mrhn.in/api/v1",
+          "http://mrhn.in/openapi.json",
+          "http://mrhn.in/api/users",
+          "http://mrhn.in/api/items"
         ],
         "potential_impact": "Application downtime, degraded SLA, resource starvation for legitimate users.",
         "risk_level": "HIGH",
@@ -351,7 +410,9 @@
         "title": "Horizontal & Vertical Role Authorization Bypass",
         "description": "Administrative endpoints or object identifiers may not consistently enforce server-side Role-Based Access Control (RBAC).",
         "affected_components": [
-          "https://dld.srmist.edu.in/admin"
+          "http://mrhn.in/admin",
+          "http://mrhn.in/api/admin/config",
+          "http://mrhn.in/dashboard"
         ],
         "potential_impact": "Unprivileged actors executing administrative actions, data wiping, and system reconfiguration.",
         "risk_level": "CRITICAL",
@@ -360,72 +421,8 @@
         "cwe_id": "CWE-285"
       }
     ],
-    "architectural_summary": "STRIDE Threat Analysis for dld.srmist.edu.in identified 5 structural threat vectors across 11 mapped attack surfaces. Priority attention is required for 2 high-risk data and administrative endpoints."
+    "architectural_summary": "STRIDE Threat Analysis for mrhn.in identified 6 structural threat vectors across 25 mapped attack surfaces. Priority attention is required for 7 high-risk data and administrative endpoints."
   },
-  "findings": [
-    {
-      "finding_id": "VULN-HDR-001",
-      "title": "Missing Critical Security Hardening Headers: Content-Security-Policy (CSP), X-Content-Type-Options",
-      "severity": "MEDIUM",
-      "category": "SECURITY_MISCONFIG",
-      "owasp_top10": "A05:2021-Security Misconfiguration",
-      "cwe_id": "CWE-16",
-      "affected_url": "https://dld.srmist.edu.in",
-      "http_method": "GET",
-      "affected_parameter": "HTTP Response Headers",
-      "cvss": {
-        "version": "3.1",
-        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
-        "base_score": 5.3,
-        "severity": "MEDIUM",
-        "attack_vector": "NETWORK",
-        "attack_complexity": "LOW",
-        "privileges_required": "NONE",
-        "user_interaction": "NONE",
-        "scope": "UNCHANGED",
-        "confidentiality": "LOW",
-        "integrity": "NONE",
-        "availability": "NONE"
-      },
-      "confidence": "CERTAIN",
-      "description": "The application responds without critical security defenses (Content-Security-Policy (CSP), X-Content-Type-Options), increasing susceptibility to clickjacking and MIME-type sniffing.",
-      "plain_english_summary": "The server is missing browser security shield instructions. These headers tell browsers not to allow other websites to frame your site inside an invisible window (clickjacking) or guess file types dangerously.",
-      "where_is_the_flaw": "HTTP response headers on base URL 'https://dld.srmist.edu.in'. The web server configuration is missing defensive HTTP headers: Content-Security-Policy (CSP), X-Content-Type-Options.",
-      "how_attacker_exploits": "1. Attacker embeds your website in an invisible iframe on a malicious webpage (Clickjacking).\n2. The attacker tricks a logged-in user into clicking buttons on the overlay, unknowingly performing transactions or altering account settings.",
-      "real_world_impact": "Clickjacking & MIME Spoofing: Users can be tricked into performing unintended state changes, or browsers can be tricked into executing malicious scripts via MIME confusion.",
-      "reproduction_steps": [
-        "Send GET request to https://dld.srmist.edu.in",
-        "Inspect response headers to verify absence of CSP, X-Frame-Options, or X-Content-Type-Options"
-      ],
-      "evidence": {
-        "evidence_id": "EVD-23C6B44B3A",
-        "timestamp": "2026-10-25T10:40:26.603792",
-        "request_method": "GET",
-        "request_url": "https://dld.srmist.edu.in",
-        "request_headers": {},
-        "request_body": null,
-        "response_status_code": 200,
-        "response_headers": {},
-        "response_body_sample": "server: nginx\ndate: Sun, 25 Oct 2026 10:40:26 GMT\ncontent-type: text/html\nlast-modified: Mon, 28 Sep 2026 08:35:16 GMT\ntransfer-encoding: chunked\nconnection: keep-alive\nvary: Accept-Encoding\netag: W/\"6aba26c4-492\"\nx-frame-options: SAMEORIGIN\ncontent-encoding: gzip",
-        "payload_applied": "Header Audit Probe",
-        "curl_reproduction": "curl -s -i -X GET 'https://dld.srmist.edu.in'",
-        "proof_hash": "23c6b44b3a5ef618"
-      },
-      "remediation_advice": "Configure reverse proxy or web application middleware to return defensive security headers.",
-      "remediation_code_sample": "# Secure Nginx Configuration:\nadd_header X-Frame-Options \"DENY\" always;\nadd_header X-Content-Type-Options \"nosniff\" always;\nadd_header Content-Security-Policy \"default-src 'self';\" always;",
-      "discovered_by_agent": "NetworkInfraAgent",
-      "verified_by_gate": true
-    }
-  ],
-  "remediation_plan": [
-    {
-      "priority": 1,
-      "finding_id": "VULN-HDR-001",
-      "title": "Missing Critical Security Hardening Headers: Content-Security-Policy (CSP), X-Content-Type-Options",
-      "severity": "MEDIUM",
-      "cvss_score": 5.3,
-      "affected_url": "https://dld.srmist.edu.in",
-      "remediation_action": "Configure reverse proxy or web application middleware to return defensive security headers."
-    }
-  ]
+  "findings": [],
+  "remediation_plan": []
 }

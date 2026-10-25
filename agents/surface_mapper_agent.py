@@ -64,7 +64,11 @@ class SurfaceMapperAgent:
             return "DATA"
         elif any(x in u for x in ["/api/", "openapi", "graphql", "swagger", "echo", "search", "fetch", "chat", "ai"]):
             return "API"
-        elif any(x in u for x in [".css", ".js", ".png", ".jpg", ".ico", ".svg"]):
+        elif any(x in u for x in [
+            ".css", ".js", ".png", ".jpg", ".jpeg", ".ico", ".svg", ".gif",
+            ".txt", ".xml", ".woff", ".woff2", ".ttf", ".eot", ".map", ".webp",
+            "robots.txt", "sitemap.xml", "favicon.ico"
+        ]):
             return "STATIC"
         return "GENERAL"
 

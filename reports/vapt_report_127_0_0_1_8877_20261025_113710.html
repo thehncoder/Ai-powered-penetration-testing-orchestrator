@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VAPT Assessment Dossier | VAPT-REPORT-127_0_0_1_8877-20261025_103942</title>
+  <title>VAPT Assessment Dossier | VAPT-REPORT-127_0_0_1_8877-20261025_113710</title>
   <style>
     :root {
       --bg: #070b13;
@@ -91,6 +91,13 @@
     .gate-status.failed { background: rgba(239, 68, 68, 0.2); color: #f87171; }
     .gate-title { font-weight: 600; font-size: 14px; }
     .gate-stats { color: var(--text-muted); font-size: 12px; }
+
+    /* STRIDE Threat Model Grid */
+    .tm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; margin-top: 10px; }
+    .tm-card { background: #090e17; border: 1px solid var(--card-border); border-radius: 8px; padding: 14px; }
+    .tm-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+    .tm-badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; background: rgba(99, 102, 241, 0.2); color: #818cf8; }
+    .tm-risk { font-size: 11px; font-weight: 700; }
   </style>
 </head>
 <body>
@@ -98,17 +105,17 @@
     <header>
       <div>
         <h1>🛡️ AI-Powered Penetration Testing Orchestrator</h1>
-        <div class="subtitle">Multi-Agent VAPT Autonomous Security Report • <code>VAPT-REPORT-127_0_0_1_8877-20261025_103942</code></div>
+        <div class="subtitle">Multi-Agent VAPT Autonomous Security Report • <span style="color: #818cf8; font-weight: 600;">by Harshit Nigam</span> • <code>VAPT-REPORT-127_0_0_1_8877-20261025_113710</code></div>
       </div>
       <div style="text-align: right; color: var(--text-muted); font-size: 13px;">
         Target: <strong style="color: #fff;">http://127.0.0.1:8877</strong><br>
-        Audit Timestamp: 2026-10-25 10:39:42 UTC
+        Audit Timestamp: 2026-10-25 11:37:10 UTC
       </div>
     </header>
 
     <div class="grid-stats">
       <div class="stat-card">
-        <div class="stat-val" style="color: var(--crit);">2</div>
+        <div class="stat-val" style="color: var(--crit);">3</div>
         <div class="stat-lbl">Critical Flaws</div>
       </div>
       <div class="stat-card">
@@ -120,7 +127,7 @@
         <div class="stat-lbl">Medium Severity</div>
       </div>
       <div class="stat-card">
-        <div class="stat-val" style="color: var(--accent);">7.4</div>
+        <div class="stat-val" style="color: var(--accent);">7.6</div>
         <div class="stat-lbl">Mean CVSS 3.1</div>
       </div>
       <div class="stat-card">
@@ -133,9 +140,9 @@
       <h2 style="margin-bottom: 12px; font-size: 18px; color: #fff;">📊 Executive Summary & Posture</h2>
       <pre style="white-space: pre-wrap; font-family: inherit; color: var(--text-muted); font-size: 14px;">Target System: http://127.0.0.1:8877
 Overall Posture: ELEVATED RISK
-Mean CVSS Base Score: 7.4/10.0
+Mean CVSS Base Score: 7.6/10.0
 Attack Surface Test Coverage: 100.0%
-The automated assessment identified 2 Critical and 2 High-severity vulnerability vectors. Immediate remediation is mandatory prior to production release.</pre>
+The automated assessment identified 3 Critical and 2 High-severity vulnerability vectors. Immediate remediation is mandatory prior to production release.</pre>
     </div>
 
     <div class="card">
@@ -153,17 +160,81 @@ The automated assessment identified 2 Critical and 2 High-severity vulnerability
               <span class="gate-status passed">PASSED</span>
               <div class="gate-info">
                 <div class="gate-title">Wave 4: Coverage Verification &amp; Quality Gate</div>
-                <div class="gate-stats">Coverage: 100.0% | Tested: 13/13 | Verified Findings: 7</div>
+                <div class="gate-stats">Coverage: 100.0% | Tested: 13/13 | Verified Findings: 8</div>
               </div>
             </div>
             
     </div>
 
+    
+            <div class="card">
+              <h2 style="margin-bottom: 14px; font-size: 18px; color: #fff;">🏛️ Microsoft STRIDE Architectural Threat Profile (5)</h2>
+              <div class="tm-grid">
+                
+                <div class="tm-card">
+                  <div class="tm-header">
+                    <span class="tm-badge">STRIDECategory.TAMPERING</span>
+                    <span class="tm-risk" style="color: #f97316;">HIGH</span>
+                    <strong style="color: #fff; font-size: 14px;">Input Parameter Manipulation &amp; Query Tampering</strong>
+                  </div>
+                  <p style="font-size: 13px; color: #cbd5e1; margin: 6px 0;">Unsanitized query parameters or request bodies could allow adversaries to tamper with database queries or application state.</p>
+                  <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;"><strong>Surfaces:</strong> <code>http://127.0.0.1:8877/api/search, http://127.0.0.1:8877/api/echo, http://127.0.0.1:8877/api/user/profile</code></div>
+                  <div style="font-size: 12px; color: #34d399;"><strong>Mitigation:</strong> Enforce strict Pydantic/JSON schema validation on all inputs; utilize parameterized ORM queries; apply cryptographic HMACs for stateful parameters.</div>
+                </div>
+                
+                <div class="tm-card">
+                  <div class="tm-header">
+                    <span class="tm-badge">STRIDECategory.REPUDIATION</span>
+                    <span class="tm-risk" style="color: #eab308;">MEDIUM</span>
+                    <strong style="color: #fff; font-size: 14px;">Insufficient Transaction Audit Logging &amp; Non-Repudiation Deficit</strong>
+                  </div>
+                  <p style="font-size: 13px; color: #cbd5e1; margin: 6px 0;">State-altering API calls may lack tamper-evident forensic logging, allowing malicious actors to deny performing actions.</p>
+                  <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;"><strong>Surfaces:</strong> <code>http://127.0.0.1:8877/api/user/profile, http://127.0.0.1:8877/api/view, http://127.0.0.1:8877/api/ai/chat</code></div>
+                  <div style="font-size: 12px; color: #34d399;"><strong>Mitigation:</strong> Implement append-only, cryptographically hashed audit trails for sensitive operations capturing timestamp, user ID, client IP, and request digest.</div>
+                </div>
+                
+                <div class="tm-card">
+                  <div class="tm-header">
+                    <span class="tm-badge">STRIDECategory.INFORMATION_DISCLOSURE</span>
+                    <span class="tm-risk" style="color: #eab308;">MEDIUM</span>
+                    <strong style="color: #fff; font-size: 14px;">Technology Stack Fingerprinting &amp; Verbose Error Leakage</strong>
+                  </div>
+                  <p style="font-size: 13px; color: #cbd5e1; margin: 6px 0;">Server response headers, stack traces, and unauthenticated metadata endpoints disclose underlying framework and runtime versions.</p>
+                  <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;"><strong>Surfaces:</strong> <code>127.0.0.1</code></div>
+                  <div style="font-size: 12px; color: #34d399;"><strong>Mitigation:</strong> Strip &#x27;Server&#x27; and &#x27;X-Powered-By&#x27; headers in reverse proxy configs; disable detailed exception stack dumps in production environments.</div>
+                </div>
+                
+                <div class="tm-card">
+                  <div class="tm-header">
+                    <span class="tm-badge">STRIDECategory.DENIAL_OF_SERVICE</span>
+                    <span class="tm-risk" style="color: #f97316;">HIGH</span>
+                    <strong style="color: #fff; font-size: 14px;">Unthrottled API Resource Exhaustion &amp; Heavy Query DoS</strong>
+                  </div>
+                  <p style="font-size: 13px; color: #cbd5e1; margin: 6px 0;">Lack of explicit rate-limiting tokens allows concurrent high-frequency queries to exhaust backend threads and database connection pools.</p>
+                  <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;"><strong>Surfaces:</strong> <code>http://127.0.0.1:8877/openapi.json, http://127.0.0.1:8877/api/search, http://127.0.0.1:8877/api/echo</code></div>
+                  <div style="font-size: 12px; color: #34d399;"><strong>Mitigation:</strong> Deploy leaky-bucket or token-bucket rate limiting (e.g. Redis sliding window) at the API gateway layer.</div>
+                </div>
+                
+                <div class="tm-card">
+                  <div class="tm-header">
+                    <span class="tm-badge">STRIDECategory.ELEVATION_OF_PRIVILEGE</span>
+                    <span class="tm-risk" style="color: #ef4444;">CRITICAL</span>
+                    <strong style="color: #fff; font-size: 14px;">Horizontal &amp; Vertical Role Authorization Bypass</strong>
+                  </div>
+                  <p style="font-size: 13px; color: #cbd5e1; margin: 6px 0;">Administrative endpoints or object identifiers may not consistently enforce server-side Role-Based Access Control (RBAC).</p>
+                  <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;"><strong>Surfaces:</strong> <code>http://127.0.0.1:8877/api/admin/config</code></div>
+                  <div style="font-size: 12px; color: #34d399;"><strong>Mitigation:</strong> Adopt centralized authorization policy middleware; enforce Principle of Least Privilege across all route handlers.</div>
+                </div>
+                
+              </div>
+            </div>
+            
+
     <div style="display: flex; justify-content: space-between; align-items: center; margin: 32px 0 16px 0; flex-wrap: wrap; gap: 12px;">
-      <h2 style="font-size: 20px; color: #fff;">🔍 Verified Vulnerability Findings (7)</h2>
+      <h2 style="font-size: 20px; color: #fff;">🔍 Verified Vulnerability Findings (8)</h2>
       <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterFindings('ALL')">All (7)</button>
-        <button class="filter-btn" onclick="filterFindings('CRITICAL')">Critical (2)</button>
+        <button class="filter-btn active" onclick="filterFindings('ALL')">All (8)</button>
+        <button class="filter-btn" onclick="filterFindings('CRITICAL')">Critical (3)</button>
         <button class="filter-btn" onclick="filterFindings('HIGH')">High (2)</button>
         <button class="filter-btn" onclick="filterFindings('MEDIUM')">Medium (3)</button>
         <button class="filter-btn" onclick="filterFindings('LOW')">Low (0)</button>
@@ -230,6 +301,68 @@ import ipaddress
 ip = ipaddress.ip_address(resolved_ip)
 if ip.is_private or ip.is_loopback:
     raise SecurityException(&quot;Internal IP access denied&quot;)</code></pre></div>
+              </div>
+            </div>
+            
+            <div class="card finding-card severity-critical" data-severity="CRITICAL">
+              <div class="card-header">
+                <div class="header-left">
+                  <span class="badge" style="background: #ef4444; color: #fff;">CRITICAL 9.1</span>
+                  <span class="finding-id">VULN-ADMIN-002</span>
+                  <h3 class="finding-title">Unauthenticated Access to Administrative Endpoint: http://127.0.0.1:8877/api/admin/config</h3>
+                </div>
+                <span class="badge badge-outline">CWE-306</span>
+              </div>
+
+              <!-- PLAIN ENGLISH NON-TECHNICAL BREAKDOWN -->
+              <div class="section-box plain-english-box">
+                <div class="box-title">💡 Plain English Breakdown (Non-Technical Summary)</div>
+                <p class="plain-summary-text">The admin control panel has no lock on the front door. Anyone who knows or guesses the URL can enter and use management functions without entering any password or logging in.</p>
+                <div class="flaw-callout">
+                  <div class="callout-item">
+                    <span class="callout-lbl">📍 Where is the Flaw:</span>
+                    <span class="callout-val flaw-highlight">Endpoint &#x27;GET http://127.0.0.1:8877/api/admin/config&#x27;. The route handler lacks authentication and role-based access control (RBAC) middleware, allowing open anonymous internet traffic to reach management functions.</span>
+                  </div>
+                  <div class="callout-item" style="margin-top: 8px;">
+                    <span class="callout-lbl">💥 Business & User Impact:</span>
+                    <span class="callout-val impact-highlight">Full Administrative Compromise: Unauthorized management of users, backend configurations, system status, and internal operational data.</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- HOW AN ATTACKER EXPLOITS THIS -->
+              <div class="section-box exploit-box">
+                <div class="box-title">🏴‍☠️ How an Attacker Can Exploit This (Attack Scenario)</div>
+                <div class="exploit-chain">
+                  <div class='exploit-step'><span class='step-icon'>⚡</span><span class='step-desc'>1. Attacker discovers the admin endpoint via directory brute-forcing or automated scanning.</span></div><div class='exploit-step'><span class='step-icon'>⚡</span><span class='step-desc'>2. Attacker sends a direct request without any authorization headers.</span></div><div class='exploit-step'><span class='step-icon'>⚡</span><span class='step-desc'>3. The application grants unrestricted access to privileged operations, user lists, and internal system configs.</span></div>
+                </div>
+              </div>
+
+              <!-- TECHNICAL FORENSICS & REPRODUCTION -->
+              <details class="tech-details" open>
+                <summary class="tech-summary">🔬 Technical Forensics & Reproduction</summary>
+                <p class="desc" style="margin-top: 10px;">Privileged administrative endpoint is accessible anonymously without authentication or RBAC validation.</p>
+                <div class="meta-row">
+                  <div><strong>Endpoint:</strong> <code>GET http://127.0.0.1:8877/api/admin/config</code></div>
+                  <div><strong>Parameter:</strong> <code>None</code></div>
+                  <div><strong>OWASP:</strong> A01:2021-Broken Access Control</div>
+                  <div><strong>CVSS 3.1:</strong> <code>CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N</code></div>
+                  <div><strong>Evidence Hash:</strong> <code>e0d899bb91bc656a</code></div>
+                </div>
+                <h4 style="margin-top: 14px; font-size: 13px; color: #94a3b8;">🧪 Verified Proof of Concept (cURL Reproduction)</h4>
+                <div class="code-block"><pre><code>curl -s -i -X GET &#x27;http://127.0.0.1:8877/api/admin/config&#x27;</code></pre></div>
+              </details>
+
+              <!-- REMEDIATION GUIDANCE -->
+              <div class="remediation-box">
+                <h4>🛠️ How to Fix (Remediation Guidance)</h4>
+                <p style="margin: 6px 0 10px 0; color: #cbd5e1;">Enforce role-based access control (RBAC) middleware on all administrative route groups.</p>
+                <div class='code-block'><pre><code># Secure Middleware:
+@app.middleware(&quot;http&quot;)
+async def require_admin_role(request: Request, call_next):
+    if request.url.path.startswith(&quot;/admin&quot;) and request.state.user.role != &quot;ADMIN&quot;:
+        return Response(status_code=403)
+    return await call_next(request)</code></pre></div>
               </div>
             </div>
             
@@ -421,7 +554,7 @@ if not target_path.is_relative_to(safe_dir):
               <div class="card-header">
                 <div class="header-left">
                   <span class="badge" style="background: #eab308; color: #fff;">MEDIUM 6.1</span>
-                  <span class="finding-id">VULN-XSS-282</span>
+                  <span class="finding-id">VULN-XSS-999</span>
                   <h3 class="finding-title">Reflected Cross-Site Scripting (XSS) in &#x27;name&#x27;</h3>
                 </div>
                 <span class="badge badge-outline">CWE-79</span>
@@ -480,7 +613,7 @@ safe_input = html.escape(user_input)</code></pre></div>
               <div class="card-header">
                 <div class="header-left">
                   <span class="badge" style="background: #eab308; color: #fff;">MEDIUM 6.1</span>
-                  <span class="finding-id">VULN-XSS-201</span>
+                  <span class="finding-id">VULN-XSS-901</span>
                   <h3 class="finding-title">Reflected Cross-Site Scripting (XSS) in &#x27;file&#x27;</h3>
                 </div>
                 <span class="badge badge-outline">CWE-79</span>
@@ -596,6 +729,10 @@ add_header Content-Security-Policy &quot;default-src &#x27;self&#x27;;&quot; alw
             </div>
             
     </div>
+
+    <footer style="margin-top: 50px; padding: 24px 0; border-top: 1px solid var(--card-border); text-align: center; color: var(--text-muted); font-size: 13px;">
+      🛡️ AI-Powered Penetration Testing Orchestrator • Developed & Engineered <strong style="color: #a5b4fc;">by Harshit Nigam</strong>
+    </footer>
   </div>
 
   <script>

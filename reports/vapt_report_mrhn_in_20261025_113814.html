@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VAPT Assessment Dossier | VAPT-REPORT-DLD_SRMIST_EDU_IN-20261025_104039</title>
+  <title>VAPT Assessment Dossier | VAPT-REPORT-MRHN_IN-20261025_113814</title>
   <style>
     :root {
       --bg: #070b13;
@@ -91,6 +91,13 @@
     .gate-status.failed { background: rgba(239, 68, 68, 0.2); color: #f87171; }
     .gate-title { font-weight: 600; font-size: 14px; }
     .gate-stats { color: var(--text-muted); font-size: 12px; }
+
+    /* STRIDE Threat Model Grid */
+    .tm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; margin-top: 10px; }
+    .tm-card { background: #090e17; border: 1px solid var(--card-border); border-radius: 8px; padding: 14px; }
+    .tm-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+    .tm-badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; background: rgba(99, 102, 241, 0.2); color: #818cf8; }
+    .tm-risk { font-size: 11px; font-weight: 700; }
   </style>
 </head>
 <body>
@@ -98,11 +105,11 @@
     <header>
       <div>
         <h1>🛡️ AI-Powered Penetration Testing Orchestrator</h1>
-        <div class="subtitle">Multi-Agent VAPT Autonomous Security Report • <code>VAPT-REPORT-DLD_SRMIST_EDU_IN-20261025_104039</code></div>
+        <div class="subtitle">Multi-Agent VAPT Autonomous Security Report • <span style="color: #818cf8; font-weight: 600;">by Harshit Nigam</span> • <code>VAPT-REPORT-MRHN_IN-20261025_113814</code></div>
       </div>
       <div style="text-align: right; color: var(--text-muted); font-size: 13px;">
-        Target: <strong style="color: #fff;">https://dld.srmist.edu.in</strong><br>
-        Audit Timestamp: 2026-10-25 10:40:39 UTC
+        Target: <strong style="color: #fff;">http://mrhn.in</strong><br>
+        Audit Timestamp: 2026-10-25 11:38:14 UTC
       </div>
     </header>
 
@@ -116,11 +123,11 @@
         <div class="stat-lbl">High Severity</div>
       </div>
       <div class="stat-card">
-        <div class="stat-val" style="color: var(--med);">1</div>
+        <div class="stat-val" style="color: var(--med);">0</div>
         <div class="stat-lbl">Medium Severity</div>
       </div>
       <div class="stat-card">
-        <div class="stat-val" style="color: var(--accent);">5.3</div>
+        <div class="stat-val" style="color: var(--accent);">0.0</div>
         <div class="stat-lbl">Mean CVSS 3.1</div>
       </div>
       <div class="stat-card">
@@ -131,11 +138,11 @@
 
     <div class="card">
       <h2 style="margin-bottom: 12px; font-size: 18px; color: #fff;">📊 Executive Summary & Posture</h2>
-      <pre style="white-space: pre-wrap; font-family: inherit; color: var(--text-muted); font-size: 14px;">Target System: https://dld.srmist.edu.in
-Overall Posture: MODERATE RISK
-Mean CVSS Base Score: 5.3/10.0
+      <pre style="white-space: pre-wrap; font-family: inherit; color: var(--text-muted); font-size: 14px;">Target System: http://mrhn.in
+Overall Posture: SECURE / LOW RISK
+Mean CVSS Base Score: 0.0/10.0
 Attack Surface Test Coverage: 100.0%
-The assessment revealed 1 Medium-severity flaws. Remediation should be scheduled within standard sprint cycles.</pre>
+No critical or high-risk exploit vectors were discovered. Basic defense-in-depth hygiene should be maintained.</pre>
     </div>
 
     <div class="card">
@@ -145,7 +152,7 @@ The assessment revealed 1 Medium-severity flaws. Remediation should be scheduled
               <span class="gate-status passed">PASSED</span>
               <div class="gate-info">
                 <div class="gate-title">Wave 1: Surface Reconnaissance</div>
-                <div class="gate-stats">Coverage: 100.0% | Tested: 13/13 | Verified Findings: 0</div>
+                <div class="gate-stats">Coverage: 100.0% | Tested: 15/15 | Verified Findings: 0</div>
               </div>
             </div>
             
@@ -153,86 +160,105 @@ The assessment revealed 1 Medium-severity flaws. Remediation should be scheduled
               <span class="gate-status passed">PASSED</span>
               <div class="gate-info">
                 <div class="gate-title">Wave 4: Coverage Verification &amp; Quality Gate</div>
-                <div class="gate-stats">Coverage: 100.0% | Tested: 11/11 | Verified Findings: 1</div>
+                <div class="gate-stats">Coverage: 100.0% | Tested: 25/25 | Verified Findings: 0</div>
               </div>
             </div>
             
     </div>
 
+    
+            <div class="card">
+              <h2 style="margin-bottom: 14px; font-size: 18px; color: #fff;">🏛️ Microsoft STRIDE Architectural Threat Profile (6)</h2>
+              <div class="tm-grid">
+                
+                <div class="tm-card">
+                  <div class="tm-header">
+                    <span class="tm-badge">STRIDECategory.SPOOFING</span>
+                    <span class="tm-risk" style="color: #f97316;">HIGH</span>
+                    <strong style="color: #fff; font-size: 14px;">Authentication Token Forgery &amp; Identity Spoofing</strong>
+                  </div>
+                  <p style="font-size: 13px; color: #cbd5e1; margin: 6px 0;">Adversaries may forge or tamper with authentication bearer tokens or session cookies to impersonate legitimate users.</p>
+                  <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;"><strong>Surfaces:</strong> <code>http://mrhn.in/login</code></div>
+                  <div style="font-size: 12px; color: #34d399;"><strong>Mitigation:</strong> Enforce cryptographically strong asymmetric signatures (RS256/Ed25519) on all JWTs, strictly forbid &#x27;none&#x27; algorithm, and rotate signing keys periodically.</div>
+                </div>
+                
+                <div class="tm-card">
+                  <div class="tm-header">
+                    <span class="tm-badge">STRIDECategory.TAMPERING</span>
+                    <span class="tm-risk" style="color: #f97316;">HIGH</span>
+                    <strong style="color: #fff; font-size: 14px;">Input Parameter Manipulation &amp; Query Tampering</strong>
+                  </div>
+                  <p style="font-size: 13px; color: #cbd5e1; margin: 6px 0;">Unsanitized query parameters or request bodies could allow adversaries to tamper with database queries or application state.</p>
+                  <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;"><strong>Surfaces:</strong> <code>http://mrhn.in/api/users, http://mrhn.in/api/user/profile, http://mrhn.in/api/search</code></div>
+                  <div style="font-size: 12px; color: #34d399;"><strong>Mitigation:</strong> Enforce strict Pydantic/JSON schema validation on all inputs; utilize parameterized ORM queries; apply cryptographic HMACs for stateful parameters.</div>
+                </div>
+                
+                <div class="tm-card">
+                  <div class="tm-header">
+                    <span class="tm-badge">STRIDECategory.REPUDIATION</span>
+                    <span class="tm-risk" style="color: #eab308;">MEDIUM</span>
+                    <strong style="color: #fff; font-size: 14px;">Insufficient Transaction Audit Logging &amp; Non-Repudiation Deficit</strong>
+                  </div>
+                  <p style="font-size: 13px; color: #cbd5e1; margin: 6px 0;">State-altering API calls may lack tamper-evident forensic logging, allowing malicious actors to deny performing actions.</p>
+                  <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;"><strong>Surfaces:</strong> <code>http://mrhn.in/login, http://mrhn.in/api/user/profile, http://mrhn.in/api/view</code></div>
+                  <div style="font-size: 12px; color: #34d399;"><strong>Mitigation:</strong> Implement append-only, cryptographically hashed audit trails for sensitive operations capturing timestamp, user ID, client IP, and request digest.</div>
+                </div>
+                
+                <div class="tm-card">
+                  <div class="tm-header">
+                    <span class="tm-badge">STRIDECategory.INFORMATION_DISCLOSURE</span>
+                    <span class="tm-risk" style="color: #eab308;">MEDIUM</span>
+                    <strong style="color: #fff; font-size: 14px;">Technology Stack Fingerprinting &amp; Verbose Error Leakage</strong>
+                  </div>
+                  <p style="font-size: 13px; color: #cbd5e1; margin: 6px 0;">Server response headers, stack traces, and unauthenticated metadata endpoints disclose underlying framework and runtime versions.</p>
+                  <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;"><strong>Surfaces:</strong> <code>mrhn.in</code></div>
+                  <div style="font-size: 12px; color: #34d399;"><strong>Mitigation:</strong> Strip &#x27;Server&#x27; and &#x27;X-Powered-By&#x27; headers in reverse proxy configs; disable detailed exception stack dumps in production environments.</div>
+                </div>
+                
+                <div class="tm-card">
+                  <div class="tm-header">
+                    <span class="tm-badge">STRIDECategory.DENIAL_OF_SERVICE</span>
+                    <span class="tm-risk" style="color: #f97316;">HIGH</span>
+                    <strong style="color: #fff; font-size: 14px;">Unthrottled API Resource Exhaustion &amp; Heavy Query DoS</strong>
+                  </div>
+                  <p style="font-size: 13px; color: #cbd5e1; margin: 6px 0;">Lack of explicit rate-limiting tokens allows concurrent high-frequency queries to exhaust backend threads and database connection pools.</p>
+                  <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;"><strong>Surfaces:</strong> <code>http://mrhn.in/api, http://mrhn.in/api/v1, http://mrhn.in/openapi.json</code></div>
+                  <div style="font-size: 12px; color: #34d399;"><strong>Mitigation:</strong> Deploy leaky-bucket or token-bucket rate limiting (e.g. Redis sliding window) at the API gateway layer.</div>
+                </div>
+                
+                <div class="tm-card">
+                  <div class="tm-header">
+                    <span class="tm-badge">STRIDECategory.ELEVATION_OF_PRIVILEGE</span>
+                    <span class="tm-risk" style="color: #ef4444;">CRITICAL</span>
+                    <strong style="color: #fff; font-size: 14px;">Horizontal &amp; Vertical Role Authorization Bypass</strong>
+                  </div>
+                  <p style="font-size: 13px; color: #cbd5e1; margin: 6px 0;">Administrative endpoints or object identifiers may not consistently enforce server-side Role-Based Access Control (RBAC).</p>
+                  <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;"><strong>Surfaces:</strong> <code>http://mrhn.in/admin, http://mrhn.in/api/admin/config, http://mrhn.in/dashboard</code></div>
+                  <div style="font-size: 12px; color: #34d399;"><strong>Mitigation:</strong> Adopt centralized authorization policy middleware; enforce Principle of Least Privilege across all route handlers.</div>
+                </div>
+                
+              </div>
+            </div>
+            
+
     <div style="display: flex; justify-content: space-between; align-items: center; margin: 32px 0 16px 0; flex-wrap: wrap; gap: 12px;">
-      <h2 style="font-size: 20px; color: #fff;">🔍 Verified Vulnerability Findings (1)</h2>
+      <h2 style="font-size: 20px; color: #fff;">🔍 Verified Vulnerability Findings (0)</h2>
       <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterFindings('ALL')">All (1)</button>
+        <button class="filter-btn active" onclick="filterFindings('ALL')">All (0)</button>
         <button class="filter-btn" onclick="filterFindings('CRITICAL')">Critical (0)</button>
         <button class="filter-btn" onclick="filterFindings('HIGH')">High (0)</button>
-        <button class="filter-btn" onclick="filterFindings('MEDIUM')">Medium (1)</button>
+        <button class="filter-btn" onclick="filterFindings('MEDIUM')">Medium (0)</button>
         <button class="filter-btn" onclick="filterFindings('LOW')">Low (0)</button>
       </div>
     </div>
 
     <div id="findings-container">
       
-            <div class="card finding-card severity-medium" data-severity="MEDIUM">
-              <div class="card-header">
-                <div class="header-left">
-                  <span class="badge" style="background: #eab308; color: #fff;">MEDIUM 5.3</span>
-                  <span class="finding-id">VULN-HDR-001</span>
-                  <h3 class="finding-title">Missing Critical Security Hardening Headers: Content-Security-Policy (CSP), X-Content-Type-Options</h3>
-                </div>
-                <span class="badge badge-outline">CWE-16</span>
-              </div>
-
-              <!-- PLAIN ENGLISH NON-TECHNICAL BREAKDOWN -->
-              <div class="section-box plain-english-box">
-                <div class="box-title">💡 Plain English Breakdown (Non-Technical Summary)</div>
-                <p class="plain-summary-text">The server is missing browser security shield instructions. These headers tell browsers not to allow other websites to frame your site inside an invisible window (clickjacking) or guess file types dangerously.</p>
-                <div class="flaw-callout">
-                  <div class="callout-item">
-                    <span class="callout-lbl">📍 Where is the Flaw:</span>
-                    <span class="callout-val flaw-highlight">HTTP response headers on base URL &#x27;https://dld.srmist.edu.in&#x27;. The web server configuration is missing defensive HTTP headers: Content-Security-Policy (CSP), X-Content-Type-Options.</span>
-                  </div>
-                  <div class="callout-item" style="margin-top: 8px;">
-                    <span class="callout-lbl">💥 Business & User Impact:</span>
-                    <span class="callout-val impact-highlight">Clickjacking &amp; MIME Spoofing: Users can be tricked into performing unintended state changes, or browsers can be tricked into executing malicious scripts via MIME confusion.</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- HOW AN ATTACKER EXPLOITS THIS -->
-              <div class="section-box exploit-box">
-                <div class="box-title">🏴‍☠️ How an Attacker Can Exploit This (Attack Scenario)</div>
-                <div class="exploit-chain">
-                  <div class='exploit-step'><span class='step-icon'>⚡</span><span class='step-desc'>1. Attacker embeds your website in an invisible iframe on a malicious webpage (Clickjacking).</span></div><div class='exploit-step'><span class='step-icon'>⚡</span><span class='step-desc'>2. The attacker tricks a logged-in user into clicking buttons on the overlay, unknowingly performing transactions or altering account settings.</span></div>
-                </div>
-              </div>
-
-              <!-- TECHNICAL FORENSICS & REPRODUCTION -->
-              <details class="tech-details" open>
-                <summary class="tech-summary">🔬 Technical Forensics & Reproduction</summary>
-                <p class="desc" style="margin-top: 10px;">The application responds without critical security defenses (Content-Security-Policy (CSP), X-Content-Type-Options), increasing susceptibility to clickjacking and MIME-type sniffing.</p>
-                <div class="meta-row">
-                  <div><strong>Endpoint:</strong> <code>GET https://dld.srmist.edu.in</code></div>
-                  <div><strong>Parameter:</strong> <code>HTTP Response Headers</code></div>
-                  <div><strong>OWASP:</strong> A05:2021-Security Misconfiguration</div>
-                  <div><strong>CVSS 3.1:</strong> <code>CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N</code></div>
-                  <div><strong>Evidence Hash:</strong> <code>23c6b44b3a5ef618</code></div>
-                </div>
-                <h4 style="margin-top: 14px; font-size: 13px; color: #94a3b8;">🧪 Verified Proof of Concept (cURL Reproduction)</h4>
-                <div class="code-block"><pre><code>curl -s -i -X GET &#x27;https://dld.srmist.edu.in&#x27;</code></pre></div>
-              </details>
-
-              <!-- REMEDIATION GUIDANCE -->
-              <div class="remediation-box">
-                <h4>🛠️ How to Fix (Remediation Guidance)</h4>
-                <p style="margin: 6px 0 10px 0; color: #cbd5e1;">Configure reverse proxy or web application middleware to return defensive security headers.</p>
-                <div class='code-block'><pre><code># Secure Nginx Configuration:
-add_header X-Frame-Options &quot;DENY&quot; always;
-add_header X-Content-Type-Options &quot;nosniff&quot; always;
-add_header Content-Security-Policy &quot;default-src &#x27;self&#x27;;&quot; always;</code></pre></div>
-              </div>
-            </div>
-            
     </div>
+
+    <footer style="margin-top: 50px; padding: 24px 0; border-top: 1px solid var(--card-border); text-align: center; color: var(--text-muted); font-size: 13px;">
+      🛡️ AI-Powered Penetration Testing Orchestrator • Developed & Engineered <strong style="color: #a5b4fc;">by Harshit Nigam</strong>
+    </footer>
   </div>
 
   <script>

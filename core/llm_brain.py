@@ -45,6 +45,20 @@ class AIBrain:
             "create-react-app", "<div id=\"root\"", "<div id=\"app\"",
             "content=\"web site created using create-react-app\"", "you need to enable javascript to run this app"
         ])
+        is_waf_challenge = any(marker in lower_resp for marker in [
+            "just a moment...", "challenges.cloudflare.com", "cf-chl-widget",
+            "attention required! | cloudflare", "access denied - cloudflare",
+            "security check by cloudflare", "request blocked by aws waf"
+        ]) or (status_code in [403, 429] and "cloudflare" in lower_resp)
+
+        # A WAF challenge or blocked request is never proof of vulnerability
+        if is_waf_challenge:
+            return {
+                "is_vulnerable": False,
+                "confidence": "TENTATIVE",
+                "reasoning": "Response is a WAF challenge or security block page (Cloudflare / AWS WAF), not an executed exploit.",
+                "cwe_id": "CWE-200"
+            }
 
         if category == "SQLI":
             # 1. Multi-database vendor error signatures (MySQL, PG, SQLite, MSSQL, Oracle, MariaDB)
@@ -75,13 +89,19 @@ class AIBrain:
                     reasoning = f"Direct SQL database engine error detected matching signature '{sig}'."
                     break
 
-            # 2. UNION-based injection canary verification (prevents false negatives when errors are suppressed)
-            if not evidence_found and ("union" in payload.lower() or "select" in payload.lower()):
-                if any(canary in lower_resp for canary in ["vapt", "vapt_sqli_probe", "vapt_extract"]):
+            # 2. UNION-based injection canary verification (strict non-reflection check)
+            # In genuine UNION injection:
+            # - Status must be 200 OK
+            # - The unique canary must appear in data without the surrounding SQL syntax being echoed
+            # - If 'union select' or the full payload is in the response, it is merely HTTP parameter/URL echoing
+            if not evidence_found and status_code == 200 and "union select" in payload.lower():
+                strict_canary = "vapt_sqli_probe_extract"
+                is_url_echo = "union select" in lower_resp or payload.lower() in lower_resp
+                if strict_canary in lower_resp and not is_url_echo:
                     evidence_found = True
                     confidence = "CERTAIN"
                     cwe = "CWE-89"
-                    reasoning = "UNION-based SQL injection confirmed: injected canary string reflected directly in database query result set."
+                    reasoning = "UNION-based SQL injection confirmed: injected column canary returned by database without SQL syntax echoing."
 
         elif category == "XSS":
             # XSS requires unencoded reflection and cannot execute inside plain JSON

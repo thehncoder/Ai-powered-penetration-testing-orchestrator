@@ -1,6 +1,6 @@
 {
-  "report_id": "VAPT-REPORT-127_0_0_1_8877-20261025_111637",
-  "generated_at": "2026-10-25T11:16:37.956819Z",
+  "report_id": "VAPT-REPORT-127_0_0_1_8877-20261025_113710",
+  "generated_at": "2026-10-25T11:37:10.516872Z",
   "target": {
     "target_url": "http://127.0.0.1:8877",
     "allowed_domains": [],
@@ -15,16 +15,16 @@
     "custom_headers": {}
   },
   "summary": {
-    "total_findings": 7,
-    "critical_count": 2,
+    "total_findings": 8,
+    "critical_count": 3,
     "high_count": 2,
     "medium_count": 3,
     "low_count": 0,
     "info_count": 0,
-    "mean_cvss": 7.4,
+    "mean_cvss": 7.6,
     "coverage_rate": 100.0
   },
-  "executive_overview": "Target System: http://127.0.0.1:8877\nOverall Posture: ELEVATED RISK\nMean CVSS Base Score: 7.4/10.0\nAttack Surface Test Coverage: 100.0%\nThe automated assessment identified 2 Critical and 2 High-severity vulnerability vectors. Immediate remediation is mandatory prior to production release.",
+  "executive_overview": "Target System: http://127.0.0.1:8877\nOverall Posture: ELEVATED RISK\nMean CVSS Base Score: 7.6/10.0\nAttack Surface Test Coverage: 100.0%\nThe automated assessment identified 3 Critical and 2 High-severity vulnerability vectors. Immediate remediation is mandatory prior to production release.",
   "reconnaissance": {
     "target_domain": "127.0.0.1",
     "ip_addresses": [
@@ -109,12 +109,12 @@
       "content-type": "text/html; charset=utf-8"
     },
     "waf_detected": null,
-    "timestamp": "2026-10-25T11:16:37.839208"
+    "timestamp": "2026-10-25T11:37:10.404530Z"
   },
   "quality_gates": [
     {
       "wave_name": "Wave 1: Surface Reconnaissance",
-      "gate_timestamp": "2026-10-25T11:16:37.839208Z",
+      "gate_timestamp": "2026-10-25T11:37:10.404530Z",
       "status": "PASSED",
       "coverage_score": 100.0,
       "total_attack_surfaces": 5,
@@ -131,14 +131,14 @@
     },
     {
       "wave_name": "Wave 4: Coverage Verification & Quality Gate",
-      "gate_timestamp": "2026-10-25T11:16:37.955819Z",
+      "gate_timestamp": "2026-10-25T11:37:10.515847Z",
       "status": "PASSED",
       "coverage_score": 100.0,
       "total_attack_surfaces": 13,
       "attack_surfaces_tested": 13,
       "under_tested_surfaces": [],
-      "findings_submitted": 10,
-      "findings_verified": 7,
+      "findings_submitted": 11,
+      "findings_verified": 8,
       "findings_rejected": 3,
       "rejection_reasons": {
         "duplicate_finding_across_agents": 3
@@ -146,7 +146,7 @@
       "quality_notes": [
         "Coverage audit passed with 100.0% attack surface test density.",
         "Rejected 3 finding(s) due to lack of reproducible cryptographic evidence.",
-        "Verified 7 evidence-backed findings across all specialist agents."
+        "Verified 8 evidence-backed findings across all specialist agents."
       ]
     }
   ],
@@ -161,9 +161,9 @@
       "Elevation of Privilege": 1
     },
     "high_risk_surfaces": [
-      "http://127.0.0.1:8877/api/view",
+      "http://127.0.0.1:8877/api/user/profile",
       "http://127.0.0.1:8877/api/admin/config",
-      "http://127.0.0.1:8877/api/user/profile"
+      "http://127.0.0.1:8877/api/view"
     ],
     "threats": [
       {
@@ -286,7 +286,7 @@
       ],
       "evidence": {
         "evidence_id": "EVD-1976848903",
-        "timestamp": "2026-10-25T11:16:37.857998Z",
+        "timestamp": "2026-10-25T11:37:10.421787Z",
         "request_method": "GET",
         "request_url": "http://127.0.0.1:8877/api/fetch?url=http://169.254.169.254/latest/meta-data/",
         "request_headers": {},
@@ -301,6 +301,59 @@
       "remediation_advice": "Implement strict URL allowlisting, block private IP address spaces, and enforce IMDSv2 token authentication.",
       "remediation_code_sample": "# Secure Implementation (IP Range Validation):\nimport ipaddress\nip = ipaddress.ip_address(resolved_ip)\nif ip.is_private or ip.is_loopback:\n    raise SecurityException(\"Internal IP access denied\")",
       "discovered_by_agent": "WebVulnAgent",
+      "verified_by_gate": true
+    },
+    {
+      "finding_id": "VULN-ADMIN-002",
+      "title": "Unauthenticated Access to Administrative Endpoint: http://127.0.0.1:8877/api/admin/config",
+      "severity": "CRITICAL",
+      "category": "BROKEN_ACCESS_CONTROL",
+      "owasp_top10": "A01:2021-Broken Access Control",
+      "cwe_id": "CWE-306",
+      "affected_url": "http://127.0.0.1:8877/api/admin/config",
+      "http_method": "GET",
+      "affected_parameter": null,
+      "cvss": {
+        "version": "3.1",
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+        "base_score": 9.1,
+        "severity": "CRITICAL",
+        "attack_vector": "NETWORK",
+        "attack_complexity": "LOW",
+        "privileges_required": "NONE",
+        "user_interaction": "NONE",
+        "scope": "UNCHANGED",
+        "confidentiality": "HIGH",
+        "integrity": "HIGH",
+        "availability": "NONE"
+      },
+      "confidence": "CERTAIN",
+      "description": "Privileged administrative endpoint is accessible anonymously without authentication or RBAC validation.",
+      "plain_english_summary": "The admin control panel has no lock on the front door. Anyone who knows or guesses the URL can enter and use management functions without entering any password or logging in.",
+      "where_is_the_flaw": "Endpoint 'GET http://127.0.0.1:8877/api/admin/config'. The route handler lacks authentication and role-based access control (RBAC) middleware, allowing open anonymous internet traffic to reach management functions.",
+      "how_attacker_exploits": "1. Attacker discovers the admin endpoint via directory brute-forcing or automated scanning.\n2. Attacker sends a direct request without any authorization headers.\n3. The application grants unrestricted access to privileged operations, user lists, and internal system configs.",
+      "real_world_impact": "Full Administrative Compromise: Unauthorized management of users, backend configurations, system status, and internal operational data.",
+      "reproduction_steps": [
+        "Send GET request directly to http://127.0.0.1:8877/api/admin/config with zero credentials",
+        "Verify administrative operations or internal configurations are exposed"
+      ],
+      "evidence": {
+        "evidence_id": "EVD-E0D899BB91",
+        "timestamp": "2026-10-25T11:37:10.435194Z",
+        "request_method": "GET",
+        "request_url": "http://127.0.0.1:8877/api/admin/config",
+        "request_headers": {},
+        "request_body": null,
+        "response_status_code": 200,
+        "response_headers": {},
+        "response_body_sample": "{\"status\":\"active\",\"system_env\":\"production\",\"database_backend\":\"sqlite-cluster-01\",\"jwt_signing_key\":\"insecure_dev_secret_key_12345\",\"debug_mode\":true}",
+        "payload_applied": "No Auth Header Probe",
+        "curl_reproduction": "curl -s -i -X GET 'http://127.0.0.1:8877/api/admin/config'",
+        "proof_hash": "e0d899bb91bc656a"
+      },
+      "remediation_advice": "Enforce role-based access control (RBAC) middleware on all administrative route groups.",
+      "remediation_code_sample": "# Secure Middleware:\n@app.middleware(\"http\")\nasync def require_admin_role(request: Request, call_next):\n    if request.url.path.startswith(\"/admin\") and request.state.user.role != \"ADMIN\":\n        return Response(status_code=403)\n    return await call_next(request)",
+      "discovered_by_agent": "AuthSecAgent",
       "verified_by_gate": true
     },
     {
@@ -340,7 +393,7 @@
       ],
       "evidence": {
         "evidence_id": "EVD-FEABF67581",
-        "timestamp": "2026-10-25T11:16:37.855944Z",
+        "timestamp": "2026-10-25T11:37:10.419256Z",
         "request_method": "POST",
         "request_url": "http://127.0.0.1:8877/api/ai/chat",
         "request_headers": {},
@@ -393,7 +446,7 @@
       ],
       "evidence": {
         "evidence_id": "EVD-F62CE795B7",
-        "timestamp": "2026-10-25T11:16:37.870320Z",
+        "timestamp": "2026-10-25T11:37:10.430171Z",
         "request_method": "GET",
         "request_url": "http://127.0.0.1:8877/api/user/profile",
         "request_headers": {},
@@ -446,7 +499,7 @@
       ],
       "evidence": {
         "evidence_id": "EVD-B348212AA5",
-        "timestamp": "2026-10-25T11:16:37.954813Z",
+        "timestamp": "2026-10-25T11:37:10.514811Z",
         "request_method": "GET",
         "request_url": "http://127.0.0.1:8877/api/view?file=../../../../etc/passwd",
         "request_headers": {},
@@ -464,7 +517,7 @@
       "verified_by_gate": true
     },
     {
-      "finding_id": "VULN-XSS-330",
+      "finding_id": "VULN-XSS-999",
       "title": "Reflected Cross-Site Scripting (XSS) in 'name'",
       "severity": "MEDIUM",
       "category": "XSS",
@@ -499,7 +552,7 @@
       ],
       "evidence": {
         "evidence_id": "EVD-06C08799FD",
-        "timestamp": "2026-10-25T11:16:37.897625Z",
+        "timestamp": "2026-10-25T11:37:10.461802Z",
         "request_method": "GET",
         "request_url": "http://127.0.0.1:8877/api/echo?name=<script>alert('VAPT_XSS_PROBE')</script>",
         "request_headers": {},
@@ -517,7 +570,7 @@
       "verified_by_gate": true
     },
     {
-      "finding_id": "VULN-XSS-778",
+      "finding_id": "VULN-XSS-901",
       "title": "Reflected Cross-Site Scripting (XSS) in 'file'",
       "severity": "MEDIUM",
       "category": "XSS",
@@ -552,7 +605,7 @@
       ],
       "evidence": {
         "evidence_id": "EVD-8B96E5FE35",
-        "timestamp": "2026-10-25T11:16:37.934563Z",
+        "timestamp": "2026-10-25T11:37:10.496299Z",
         "request_method": "GET",
         "request_url": "http://127.0.0.1:8877/api/view?file=<script>alert('VAPT_XSS_PROBE')</script>",
         "request_headers": {},
@@ -605,7 +658,7 @@
       ],
       "evidence": {
         "evidence_id": "EVD-F888A11F05",
-        "timestamp": "2026-10-25T11:16:37.857998Z",
+        "timestamp": "2026-10-25T11:37:10.420283Z",
         "request_method": "GET",
         "request_url": "http://127.0.0.1:8877",
         "request_headers": {},
@@ -635,6 +688,15 @@
     },
     {
       "priority": 2,
+      "finding_id": "VULN-ADMIN-002",
+      "title": "Unauthenticated Access to Administrative Endpoint: http://127.0.0.1:8877/api/admin/config",
+      "severity": "CRITICAL",
+      "cvss_score": 9.1,
+      "affected_url": "http://127.0.0.1:8877/api/admin/config",
+      "remediation_action": "Enforce role-based access control (RBAC) middleware on all administrative route groups."
+    },
+    {
+      "priority": 3,
       "finding_id": "VULN-LLM-INJ-001",
       "title": "Direct Prompt Injection (OWASP LLM01) on http://127.0.0.1:8877/api/ai/chat",
       "severity": "CRITICAL",
@@ -643,7 +705,7 @@
       "remediation_action": "Deploy input/output guardrails (e.g. NeMo Guardrails, Llama Guard), enforce strict delimiter isolation for user text, and avoid placing secret tokens into model system prompts."
     },
     {
-      "priority": 3,
+      "priority": 4,
       "finding_id": "VULN-IDOR-001",
       "title": "Insecure Direct Object Reference (IDOR) on http://127.0.0.1:8877/api/user/profile",
       "severity": "HIGH",
@@ -652,7 +714,7 @@
       "remediation_action": "Enforce row-level ownership checks based on the authenticated session identity rather than client-supplied entity identifiers."
     },
     {
-      "priority": 4,
+      "priority": 5,
       "finding_id": "VULN-TRAV-002",
       "title": "Path Traversal Arbitrary File Read in 'file'",
       "severity": "HIGH",
@@ -661,8 +723,8 @@
       "remediation_action": "Resolve canonical paths and verify the normalized path is strictly confined to the designated base directory."
     },
     {
-      "priority": 5,
-      "finding_id": "VULN-XSS-330",
+      "priority": 6,
+      "finding_id": "VULN-XSS-999",
       "title": "Reflected Cross-Site Scripting (XSS) in 'name'",
       "severity": "MEDIUM",
       "cvss_score": 6.1,
@@ -670,8 +732,8 @@
       "remediation_action": "Apply contextual HTML entity encoding (e.g., html.escape in Python, DOMPurify on frontend) and deploy a strict Content Security Policy (CSP)."
     },
     {
-      "priority": 6,
-      "finding_id": "VULN-XSS-778",
+      "priority": 7,
+      "finding_id": "VULN-XSS-901",
       "title": "Reflected Cross-Site Scripting (XSS) in 'file'",
       "severity": "MEDIUM",
       "cvss_score": 6.1,
@@ -679,7 +741,7 @@
       "remediation_action": "Apply contextual HTML entity encoding (e.g., html.escape in Python, DOMPurify on frontend) and deploy a strict Content Security Policy (CSP)."
     },
     {
-      "priority": 7,
+      "priority": 8,
       "finding_id": "VULN-HDR-001",
       "title": "Missing Critical Security Hardening Headers: Content-Security-Policy (CSP), X-Frame-Options, X-Content-Type-Options",
       "severity": "MEDIUM",

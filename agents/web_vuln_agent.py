@@ -37,6 +37,10 @@ class WebVulnAgent(BaseAgent):
                 timeout=3.0
             )
             if res is not None:
+                # Prohibit false positives on WAF challenge / block pages
+                if any(k in res.text.lower() for k in ["just a moment...", "challenges.cloudflare.com", "cf-chl-widget", "attention required! | cloudflare"]):
+                    return None
+
                 analysis = self.brain.analyze_vulnerability_hypothesis(
                     ep.url, param, payload, res.status_code, res.text, "SQLI"
                 )
@@ -155,7 +159,7 @@ safe_input = html.escape(user_input)""",
 
                 ep.tested_by_agents.append(self.name)
 
-                sqli_payloads = ["' OR '1'='1", "admin' --", "1' UNION SELECT 1, 'vapt', 3 --"]
+                sqli_payloads = ["' OR '1'='1", "admin' --", "1' UNION SELECT 1, 'vapt_sqli_probe_extract', 3 --"]
                 params_to_test = ep.parameters if ep.parameters else ["id", "q", "query", "user", "name"]
 
                 for p in params_to_test[:3]:

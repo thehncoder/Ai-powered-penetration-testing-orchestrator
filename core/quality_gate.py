@@ -122,11 +122,35 @@ class QualityGateEngine:
                 "create-react-app", "<div id=\"root\"", "<div id=\"app\"",
                 "content=\"web site created using create-react-app\"", "you need to enable javascript to run this app"
             ])
+            is_waf_block = any(marker in body_sample for marker in [
+                "just a moment...", "challenges.cloudflare.com", "cf-chl-widget",
+                "attention required! | cloudflare", "access denied - cloudflare",
+                "security check by cloudflare", "request blocked by aws waf"
+            ]) or (finding.evidence.response_status_code in [403, 429] and "cloudflare" in body_sample)
 
-            # 4. Filter SPA / Catch-all Fallback False Positives on API routes (unhydrated client-side shell)
-            if is_spa_catch_all and finding.category in ["SSRF", "BROKEN_ACCESS_CONTROL", "BROKEN_AUTH"]:
+            # 4. Filter WAF Challenge & Security Block False Positives
+            if is_waf_block:
+                rejection_reasons["waf_challenge_block_false_positive"] = rejection_reasons.get("waf_challenge_block_false_positive", 0) + 1
+                continue
+
+            # 5. Filter SPA / Catch-all Fallback False Positives on API routes (unhydrated client-side shell)
+            if is_spa_catch_all and finding.category in ["SSRF", "BROKEN_ACCESS_CONTROL", "BROKEN_AUTH", "INJECTION"]:
                 rejection_reasons["spa_catch_all_fallback_false_positive"] = rejection_reasons.get("spa_catch_all_fallback_false_positive", 0) + 1
                 continue
+
+            # 6. Verify SQL Injection Evidence (must contain verified DB error or strict non-reflected canary)
+            if finding.category == "INJECTION" and finding.cwe_id == "CWE-89":
+                db_error_sigs = [
+                    "sql syntax", "mysql_fetch", "sqlite3.operationalerror", "sqlite3.databaseerror",
+                    "psycopg2.operationalerror", "syntax error at or near", "unterminated quoted string",
+                    "unclosed quotation mark", "quoted string not properly terminated", "microsoft ole db provider",
+                    "ora-00933", "ora-01756", "ora-00936", "sqlgrammarexception", "programmingerror"
+                ]
+                has_db_error = any(sig in body_sample for sig in db_error_sigs)
+                has_strict_canary = "vapt_sqli_probe_extract" in body_sample and "union select" not in body_sample
+                if not has_db_error and not has_strict_canary:
+                    rejection_reasons["unverified_sqli_no_db_error"] = rejection_reasons.get("unverified_sqli_no_db_error", 0) + 1
+                    continue
 
             # 5. Verify SSRF Evidence across Multi-Cloud IMDS & Internal Infrastructure daemons
             if finding.category == "SSRF":
