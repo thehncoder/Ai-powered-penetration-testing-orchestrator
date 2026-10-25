@@ -8,7 +8,7 @@ echo   AI-POWERED PENETRATION TESTING ORCHESTRATOR - TARGET SCAN
 echo   Multi-Agent VAPT Autonomous Pipeline - by Harshit Nigam
 echo ========================================================================
 echo.
-set /p TARGET_URL="Enter your target URL (e.g. https://mrhn.in or http://localhost:3000): "
+set /p TARGET_URL="Enter your target URL (e.g. https://example.com or http://localhost:3000): "
 
 if "%TARGET_URL%"=="" (
     echo [ERROR] No URL entered. Exiting.

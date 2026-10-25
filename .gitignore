@@ -45,5 +45,7 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
-# Temporary report markers
+# Temporary report markers and runtime generated reports
 reports/.latest_html.txt
+reports/vapt_report_*
+!reports/.gitkeep

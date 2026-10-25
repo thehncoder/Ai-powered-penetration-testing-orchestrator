@@ -242,7 +242,7 @@ def interactive_menu():
         choice = input("\nSelect an option [0-5]: ").strip()
 
         if choice == "1":
-            url = input("\nEnter target URL (e.g. https://mrhn.in or http://localhost:3000): ").strip()
+            url = input("\nEnter target URL (e.g. https://example.com or http://localhost:3000): ").strip()
             if url:
                 asyncio.run(run_pipeline(target_url=url, safe_mode=True))
                 input(colored("\nScan complete. Press Enter to return to menu...", "cyan"))

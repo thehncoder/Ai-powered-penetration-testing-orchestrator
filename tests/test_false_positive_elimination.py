@@ -130,7 +130,7 @@ def test_quality_gate_and_brain_reject_waf_challenge_sqli_false_positive():
     
     # 1. AIBrain must reject WAF challenge
     res = brain.analyze_vulnerability_hypothesis(
-        endpoint_url="http://mrhn.in",
+        endpoint_url="https://protected-portal.example.com",
         param="id",
         payload="1' UNION SELECT 1, 'vapt', 3 --",
         status_code=403,
@@ -144,7 +144,7 @@ def test_quality_gate_and_brain_reject_waf_challenge_sqli_false_positive():
     vault = EvidenceVault()
     ev = vault.record_evidence(
         request_method="GET",
-        request_url="http://mrhn.in?id=1'%20UNION%20SELECT%201,%20'vapt',%203%20--",
+        request_url="https://protected-portal.example.com?id=1'%20UNION%20SELECT%201,%20'vapt',%203%20--",
         response_status_code=403,
         payload_applied="1' UNION SELECT 1, 'vapt', 3 --",
         response_body=cloudflare_challenge_html
@@ -157,7 +157,7 @@ def test_quality_gate_and_brain_reject_waf_challenge_sqli_false_positive():
         category="INJECTION",
         owasp_top10="A03:2021-Injection",
         cwe_id="CWE-89",
-        affected_url="http://mrhn.in",
+        affected_url="https://protected-portal.example.com",
         http_method="GET",
         affected_parameter="id",
         cvss=cvss,
@@ -170,7 +170,7 @@ def test_quality_gate_and_brain_reject_waf_challenge_sqli_false_positive():
 
     qg_engine = QualityGateEngine()
     gate_res, verified, _ = qg_engine.evaluate_testing_gate(
-        endpoints=[ServiceEndpoint(url="http://mrhn.in", method="GET")],
+        endpoints=[ServiceEndpoint(url="https://protected-portal.example.com", method="GET")],
         findings=[finding],
         vault=vault
     )
