@@ -1,0 +1,294 @@
+{
+  "benchmark_metadata": {
+    "corpus_name": "AI-VAPT-Ground-Truth-Corpus-v1",
+    "version": "1.0.0",
+    "description": "Ground-truth benchmark test corpus containing 15 positive vulnerability vectors and 15 negative false-positive traps to evaluate detection precision and recall.",
+    "total_cases": 30,
+    "positive_cases": 15,
+    "negative_cases": 15
+  },
+  "metrics": {
+    "total_cases": 30,
+    "true_positives": 15,
+    "true_negatives": 15,
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision_percentage": 100.0,
+    "recall_percentage": 100.0,
+    "specificity_percentage": 100.0,
+    "f1_score": 1.0,
+    "accuracy_percentage": 100.0
+  },
+  "detailed_results": [
+    {
+      "id": "TC-POS-01",
+      "name": "SQLite Error-Based SQL Injection",
+      "category": "SQLI",
+      "ground_truth_vulnerable": true,
+      "predicted_vulnerable": true,
+      "is_correct": true,
+      "decision_reason": "Confirmed: Database engine runtime syntax exception detected."
+    },
+    {
+      "id": "TC-POS-02",
+      "name": "PostgreSQL Syntax Error SQL Injection",
+      "category": "SQLI",
+      "ground_truth_vulnerable": true,
+      "predicted_vulnerable": true,
+      "is_correct": true,
+      "decision_reason": "Confirmed: Database engine runtime syntax exception detected."
+    },
+    {
+      "id": "TC-POS-03",
+      "name": "UNION-Based SQLi Canary Extraction",
+      "category": "SQLI",
+      "ground_truth_vulnerable": true,
+      "predicted_vulnerable": true,
+      "is_correct": true,
+      "decision_reason": "Confirmed: Database UNION canary extracted in HTTP 200 response."
+    },
+    {
+      "id": "TC-POS-04",
+      "name": "Reflected Cross-Site Scripting (XSS)",
+      "category": "XSS",
+      "ground_truth_vulnerable": true,
+      "predicted_vulnerable": true,
+      "is_correct": true,
+      "decision_reason": "Confirmed: Raw unencoded script payload reflected in DOM."
+    },
+    {
+      "id": "TC-POS-05",
+      "name": "AWS IMDSv1/v2 Metadata SSRF",
+      "category": "SSRF",
+      "ground_truth_vulnerable": true,
+      "predicted_vulnerable": true,
+      "is_correct": true,
+      "decision_reason": "Confirmed: Cloud IMDS metadata token or internal daemon response leaked."
+    },
+    {
+      "id": "TC-POS-06",
+      "name": "GCP computeMetadata SSRF",
+      "category": "SSRF",
+      "ground_truth_vulnerable": true,
+      "predicted_vulnerable": true,
+      "is_correct": true,
+      "decision_reason": "Confirmed: Cloud IMDS metadata token or internal daemon response leaked."
+    },
+    {
+      "id": "TC-POS-07",
+      "name": "Internal Redis Daemon SSRF",
+      "category": "SSRF",
+      "ground_truth_vulnerable": true,
+      "predicted_vulnerable": true,
+      "is_correct": true,
+      "decision_reason": "Confirmed: Cloud IMDS metadata token or internal daemon response leaked."
+    },
+    {
+      "id": "TC-POS-08",
+      "name": "Horizontal IDOR HTML Profile View",
+      "category": "BROKEN_ACCESS_CONTROL",
+      "ground_truth_vulnerable": true,
+      "predicted_vulnerable": true,
+      "is_correct": true,
+      "decision_reason": "Confirmed: Unauthenticated access to sensitive administrative data / foreign PII."
+    },
+    {
+      "id": "TC-POS-09",
+      "name": "Unauthenticated Administrative Route Access",
+      "category": "BROKEN_ACCESS_CONTROL",
+      "ground_truth_vulnerable": true,
+      "predicted_vulnerable": true,
+      "is_correct": true,
+      "decision_reason": "Confirmed: Unauthenticated access to sensitive administrative data / foreign PII."
+    },
+    {
+      "id": "TC-POS-10",
+      "name": "JWT Algorithm None Signature Forgery",
+      "category": "BROKEN_ACCESS_CONTROL",
+      "ground_truth_vulnerable": true,
+      "predicted_vulnerable": true,
+      "is_correct": true,
+      "decision_reason": "Confirmed: Unauthenticated access to sensitive administrative data / foreign PII."
+    },
+    {
+      "id": "TC-POS-11",
+      "name": "Permissive CORS with Credentials",
+      "category": "SECURITY_MISCONFIG",
+      "ground_truth_vulnerable": true,
+      "predicted_vulnerable": true,
+      "is_correct": true,
+      "decision_reason": "Confirmed: Arbitrary Origin reflected with Access-Control-Allow-Credentials: true."
+    },
+    {
+      "id": "TC-POS-12",
+      "name": "Local File Inclusion Path Traversal",
+      "category": "PATH_TRAVERSAL",
+      "ground_truth_vulnerable": true,
+      "predicted_vulnerable": true,
+      "is_correct": true,
+      "decision_reason": "Confirmed: Host /etc/passwd system user accounts disclosed."
+    },
+    {
+      "id": "TC-POS-13",
+      "name": "Direct Prompt Injection Canary Execution",
+      "category": "AI_SECURITY",
+      "ground_truth_vulnerable": true,
+      "predicted_vulnerable": true,
+      "is_correct": true,
+      "decision_reason": "Confirmed: Direct prompt injection canary executed or unauthorized tool command ran."
+    },
+    {
+      "id": "TC-POS-14",
+      "name": "Insecure Autonomous Tool Shell Command Execution",
+      "category": "AI_SECURITY",
+      "ground_truth_vulnerable": true,
+      "predicted_vulnerable": true,
+      "is_correct": true,
+      "decision_reason": "Confirmed: Direct prompt injection canary executed or unauthorized tool command ran."
+    },
+    {
+      "id": "TC-POS-15",
+      "name": "Missing Strict-Transport-Security & CSP Headers",
+      "category": "SECURITY_MISCONFIG",
+      "ground_truth_vulnerable": true,
+      "predicted_vulnerable": true,
+      "is_correct": true,
+      "decision_reason": "Confirmed: Missing Strict-Transport-Security (HSTS) hardening header."
+    },
+    {
+      "id": "TC-NEG-01",
+      "name": "Cloudflare Turnstile 403 Challenge Reflection (Trap)",
+      "category": "SQLI",
+      "ground_truth_vulnerable": false,
+      "predicted_vulnerable": false,
+      "is_correct": true,
+      "decision_reason": "Suppressed: Cloudflare WAF Turnstile challenge page."
+    },
+    {
+      "id": "TC-NEG-02",
+      "name": "React Single Page Application Catch-All Soft 404 (Trap)",
+      "category": "SSRF",
+      "ground_truth_vulnerable": false,
+      "predicted_vulnerable": false,
+      "is_correct": true,
+      "decision_reason": "Suppressed: Single Page Application catch-all HTML shell."
+    },
+    {
+      "id": "TC-NEG-03",
+      "name": "Login Form with Password Input Masquerading as Admin Bypass (Trap)",
+      "category": "BROKEN_ACCESS_CONTROL",
+      "ground_truth_vulnerable": false,
+      "predicted_vulnerable": false,
+      "is_correct": true,
+      "decision_reason": "Suppressed: Standard login form requiring authentication credentials."
+    },
+    {
+      "id": "TC-NEG-04",
+      "name": "Pure REST Echo Reflection (Trap)",
+      "category": "AI_SECURITY",
+      "ground_truth_vulnerable": false,
+      "predicted_vulnerable": false,
+      "is_correct": true,
+      "decision_reason": "Suppressed: Pure REST parameter reflection without LLM execution."
+    },
+    {
+      "id": "TC-NEG-05",
+      "name": "Polite Chat Assistant Persona (Trap)",
+      "category": "AI_SECURITY",
+      "ground_truth_vulnerable": false,
+      "predicted_vulnerable": false,
+      "is_correct": true,
+      "decision_reason": "No model compliance or tool execution observed."
+    },
+    {
+      "id": "TC-NEG-06",
+      "name": "Guarded LLM Active Policy Rejection",
+      "category": "AI_SECURITY",
+      "ground_truth_vulnerable": false,
+      "predicted_vulnerable": false,
+      "is_correct": true,
+      "decision_reason": "Suppressed: Active guardrail refusal policy triggered."
+    },
+    {
+      "id": "TC-NEG-07",
+      "name": "Sandboxed Tool Gateway Rejection",
+      "category": "AI_SECURITY",
+      "ground_truth_vulnerable": false,
+      "predicted_vulnerable": false,
+      "is_correct": true,
+      "decision_reason": "Suppressed: Active guardrail refusal policy triggered."
+    },
+    {
+      "id": "TC-NEG-08",
+      "name": "Safe Parameterized Query 200 OK Normal Response",
+      "category": "SQLI",
+      "ground_truth_vulnerable": false,
+      "predicted_vulnerable": false,
+      "is_correct": true,
+      "decision_reason": "No database error signatures or extraction tokens present."
+    },
+    {
+      "id": "TC-NEG-09",
+      "name": "Properly Protected Admin Route 401 Unauthorized",
+      "category": "BROKEN_ACCESS_CONTROL",
+      "ground_truth_vulnerable": false,
+      "predicted_vulnerable": false,
+      "is_correct": true,
+      "decision_reason": "Access denied with HTTP 401; authorization enforced."
+    },
+    {
+      "id": "TC-NEG-10",
+      "name": "Properly Protected Admin Route 403 Forbidden",
+      "category": "BROKEN_ACCESS_CONTROL",
+      "ground_truth_vulnerable": false,
+      "predicted_vulnerable": false,
+      "is_correct": true,
+      "decision_reason": "Access denied with HTTP 403; authorization enforced."
+    },
+    {
+      "id": "TC-NEG-11",
+      "name": "Safely Encoded HTML Entity Script Reflection",
+      "category": "XSS",
+      "ground_truth_vulnerable": false,
+      "predicted_vulnerable": false,
+      "is_correct": true,
+      "decision_reason": "Payload either safely HTML entity-encoded or absent."
+    },
+    {
+      "id": "TC-NEG-12",
+      "name": "Restricted Whitelist CORS Origin",
+      "category": "SECURITY_MISCONFIG",
+      "ground_truth_vulnerable": false,
+      "predicted_vulnerable": false,
+      "is_correct": true,
+      "decision_reason": "CORS header appropriately restricted; security headers satisfied."
+    },
+    {
+      "id": "TC-NEG-13",
+      "name": "Path Traversal Safe 404 / 400 Validation Rejection",
+      "category": "PATH_TRAVERSAL",
+      "ground_truth_vulnerable": false,
+      "predicted_vulnerable": false,
+      "is_correct": true,
+      "decision_reason": "Path traversal sequence blocked or rejected (HTTP 400)."
+    },
+    {
+      "id": "TC-NEG-14",
+      "name": "Static CSS Stylesheet File (Excluded from active probing)",
+      "category": "STATIC_RESOURCE",
+      "ground_truth_vulnerable": false,
+      "predicted_vulnerable": false,
+      "is_correct": true,
+      "decision_reason": "Excluded: Static file extension excluded from attack surface fuzzing."
+    },
+    {
+      "id": "TC-NEG-15",
+      "name": "Generic 500 Internal Error Without Database Leakage",
+      "category": "SQLI",
+      "ground_truth_vulnerable": false,
+      "predicted_vulnerable": false,
+      "is_correct": true,
+      "decision_reason": "No database error signatures or extraction tokens present."
+    }
+  ]
+}

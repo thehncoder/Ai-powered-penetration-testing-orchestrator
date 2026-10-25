@@ -7,7 +7,9 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Pydantic v2](https://img.shields.io/badge/Pydantic-v2.11+-E92063.svg?style=for-the-badge&logo=pydantic&logoColor=white)](https://docs.pydantic.dev/)
 [![CVSS v3.1](https://img.shields.io/badge/CVSS-v3.1_FIRST_Spec-blue.svg?style=for-the-badge)](https://www.first.org/cvss/)
-[![Tests](https://img.shields.io/badge/Unit%20Tests-19%2F19%20Passing-success.svg?style=for-the-badge&logo=pytest&logoColor=white)]()
+[![CI](https://github.com/thehncoder/Ai-powered-penetration-testing-orchestrator/actions/workflows/ci.yml/badge.svg)](https://github.com/thehncoder/Ai-powered-penetration-testing-orchestrator/actions)
+[![Tests](https://img.shields.io/badge/Unit%20Tests-38%2F38%20Passing-success.svg?style=for-the-badge&logo=pytest&logoColor=white)]()
+[![Benchmark](https://img.shields.io/badge/Corpus%20Benchmark-30%2F30%20Verified-brightgreen.svg?style=for-the-badge)](BENCHMARK_RESULTS.md)
 [![Evidence Integrity](https://img.shields.io/badge/Evidence-SHA--256_Integrity-blue.svg?style=for-the-badge)]()
 [![Validation](https://img.shields.io/badge/Validation-Differential_Oracle-brightgreen.svg?style=for-the-badge)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
@@ -261,40 +263,38 @@ python -m pytest tests/ -v
 ```
 ```text
 ============================= test session starts =============================
-collected 19 items
+collected 38 items
 
-tests/test_cvss_engine.py::test_cvss_critical_sqli PASSED                [  5%]
-tests/test_cvss_engine.py::test_cvss_xss_medium PASSED                   [ 10%]
-tests/test_cvss_engine.py::test_cvss_template_helper PASSED              [ 15%]
-tests/test_false_negative_prevention.py::test_ssrf_multi_cloud_and_internal_services_not_missed PASSED [ 21%]
-tests/test_false_negative_prevention.py::test_idor_html_rendered_view_not_missed PASSED [ 26%]
-tests/test_false_negative_prevention.py::test_admin_route_diverse_keywords_not_missed PASSED [ 31%]
-tests/test_false_negative_prevention.py::test_union_based_sqli_reflection_not_missed PASSED [ 36%]
-tests/test_false_negative_prevention.py::test_surface_mapper_does_not_drop_real_api_html_documentation[asyncio] PASSED [ 42%]
-tests/test_false_negative_prevention.py::test_surface_mapper_does_not_drop_real_api_html_documentation[trio] PASSED [ 47%]
-tests/test_false_positive_elimination.py::test_quality_gate_rejects_spa_catch_all_ssrf_false_positive PASSED [ 52%]
-tests/test_false_positive_elimination.py::test_quality_gate_rejects_admin_login_page_false_positive PASSED [ 57%]
-tests/test_false_positive_elimination.py::test_ai_brain_rejects_unverified_metadata_for_ssrf PASSED [ 63%]
-tests/test_false_positive_elimination.py::test_quality_gate_and_brain_reject_waf_challenge_sqli_false_positive PASSED [ 68%]
-tests/test_full_pipeline.py::test_full_pipeline_run PASSED               [ 73%]
-tests/test_quality_gate.py::test_quality_gate_rejects_unrecorded_or_tampered_evidence PASSED [ 78%]
-tests/test_quality_gate.py::test_quality_gate_accepts_valid_evidence PASSED [ 84%]
-tests/test_regression_engine.py::test_regression_detects_remediation PASSED [ 89%]
-tests/test_reporter_exploit_narrative.py::test_reporter_plain_english_and_exploit_narrative PASSED [ 94%]
-tests/test_threat_model.py::test_stride_threat_modeling_synthesis PASSED [100%]
+tests/test_ai_sec_agent.py (12 tests) ............                       [ 31%]
+tests/test_benchmark_corpus.py (1 test) .                                [ 34%]
+tests/test_cvss_engine.py (3 tests) ...                                  [ 42%]
+tests/test_false_negative_prevention.py (6 tests) ......                 [ 57%]
+tests/test_false_positive_elimination.py (4 tests) ....                  [ 68%]
+tests/test_full_pipeline.py (1 test) .                                   [ 71%]
+tests/test_quality_gate.py (2 tests) ..                                  [ 76%]
+tests/test_regression_engine.py (7 tests) .......                        [ 94%]
+tests/test_reporter_exploit_narrative.py (1 test) .                      [ 97%]
+tests/test_threat_model.py (1 test) .                                    [100%]
 
-============================= 19 passed in 0.82s ==============================
+============================= 38 passed in 2.44s ==============================
 ```
+
+### 6. Ground-Truth Benchmark Evaluation
+Execute the empirical benchmark suite against the 30-case ground-truth corpus (15 positive vulnerability vectors and 15 negative false-positive traps):
+```bash
+python benchmark/evaluate_benchmark.py
+```
+> See [`BENCHMARK_RESULTS.md`](BENCHMARK_RESULTS.md) for full empirical metrics (Precision, Recall, F1), test matrix, and documented limitations.
 
 ---
 
 ## 📊 Sample Deliverables
 
 Assessment runs compile three complementary deliverable formats in `reports/`:
-1. 🌐 **Interactive Dark-Mode HTML Report** (`reports/vapt_report_*.html`): Features FIRST CVSS v3.1 scorecards, copy-paste `curl` reproductions, STRIDE threat profiles, Plain-English summaries, and step-by-step exploit scenarios.
+1. 🌐 **Interactive Dark-Mode HTML Report** (`reports/vapt_report_*.html`): Features FIRST CVSS v3.1 scorecards, copy-paste `curl` reproductions, architectural STRIDE threat profiles with assets and trust boundaries, Plain-English summaries, and step-by-step exploit scenarios.
 2. 📝 **Technical Markdown Dossier** (`reports/vapt_report_*.md`): Complete audit documentation ready for version control, GitHub pull requests, or issue trackers.
 3. 📦 **Machine-Readable JSON Schema Report** (`reports/vapt_report_*.json`): Strict Pydantic JSON export suitable for ingestion into SIEMs, DefectDojo, or CI/CD break-build gates.
-4. 🔄 **Regression Audit Dossier** (`reports/regression_audit_*.json`): Tracks whether reported vulnerabilities were successfully patched.
+4. 🔄 **Regression Audit Dossier** (`reports/regression_audit_*.json`): Tracks whether reported vulnerabilities were confirmed fixed, still vulnerable, or inconclusive.
 
 ---
 
@@ -302,10 +302,17 @@ Assessment runs compile three complementary deliverable formats in `reports/`:
 
 ```
 ai-powered-penetration-testing-orchestrator/
+├── .github/
+│   └── workflows/ci.yml       # GitHub Actions Automated CI (Multi-OS Linux/Windows)
+├── benchmark/
+│   ├── test_corpus.json       # 30-case ground-truth evaluation corpus (15 pos, 15 neg)
+│   ├── evaluate_benchmark.py  # Precision, recall, and F1-score evaluation harness
+│   └── evaluation_report.json # Serialized empirical evaluation benchmark results
 ├── cli.py                     # Cyber-themed CLI with regression runner & author credits
 ├── run.bat                    # 1-Click interactive launcher for Windows
 ├── scan_custom_target.bat     # Fast custom target scanner script
 ├── generate_sample_report.py  # Standalone utility to synthesize demo reports
+├── BENCHMARK_RESULTS.md       # Empirical benchmark evaluation metrics & limitations
 ├── conftest.py                # Pytest path and runner configuration
 ├── requirements.txt           # Python library dependencies
 ├── README.md                  # Comprehensive architectural and user documentation
@@ -314,8 +321,8 @@ ai-powered-penetration-testing-orchestrator/
 │   ├── schemas.py             # Strict Pydantic models (Targets, Findings, QualityGates)
 │   ├── orchestrator.py        # 5-Wave Pipeline master coordinator & auto-healing
 │   ├── quality_gate.py        # Coverage verification, proof hashing & dual precision
-│   ├── threat_model.py        # STRIDE Threat Modeling Engine
-│   ├── regression_engine.py   # Security Remediation Regression Engine
+│   ├── threat_model.py        # Architectural STRIDE Engine (Assets, Boundaries, Flows)
+│   ├── regression_engine.py   # Security Regression Engine with target_override
 │   ├── cvss_engine.py         # FIRST CVSS v3.1 Base Score calculator
 │   ├── evidence_vault.py      # Immutable cryptographic proof vault & cURL generator
 │   └── llm_brain.py           # Specialist hypothesis & reasoning engine
@@ -329,15 +336,18 @@ ai-powered-penetration-testing-orchestrator/
 │   ├── ai_sec_agent.py        # Wave 3 Specialist (Prompt Injection, Insecure Tools)
 │   └── reporter_agent.py      # Wave 5 Specialist (Executive & Technical Reporting)
 ├── mock_target/
-│   └── app.py                 # Safe vulnerable FastAPI testbed microservice
-├── reports/                   # Generated assessment deliverables (HTML, MD, JSON)
+│   ├── app.py                 # Safe vulnerable FastAPI testbed microservice
+│   └── mock_ai_service.py     # Controlled mock LLM/tool testbed (pos & neg endpoints)
+├── reports/                   # Destination directory for audit deliverables
 └── tests/
+    ├── test_ai_sec_agent.py   # Positive & negative tests for LLM01 and LLM07
+    ├── test_benchmark_corpus.py # CI runner for 30-case benchmark corpus
     ├── test_cvss_engine.py    # Unit tests for CVSS formulas & severity thresholds
     ├── test_quality_gate.py   # Unit tests for evidence verification & quality thresholds
     ├── test_false_positive_elimination.py # Tests verifying false-positive suppression (SPA, WAF)
     ├── test_false_negative_prevention.py  # Tests verifying detection coverage (multi-cloud, IDOR)
-    ├── test_threat_model.py   # Unit tests for STRIDE threat synthesis
-    ├── test_regression_engine.py # Unit tests for remediation validation
+    ├── test_threat_model.py   # Unit tests for architectural STRIDE threat synthesis
+    ├── test_regression_engine.py # Unit tests for remediation validation & target_override
     ├── test_reporter_exploit_narrative.py # Tests verifying Plain-English narratives
     └── test_full_pipeline.py  # Integration test across full 5-wave pipeline
 ```

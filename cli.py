@@ -172,11 +172,18 @@ async def run_regression(report_path: str, target_override: Optional[str] = None
     audit_res = await engine.run_regression_audit(report_obj.findings, target_override=target_override)
 
     print(colored(f"Target: {audit_res.target_url} | Findings Evaluated: {audit_res.total_tested}", "white"), flush=True)
-    print(colored(f"Remediated: {audit_res.remediated_count} | Regressed: {audit_res.regressed_count} | Fix Rate: {audit_res.fix_rate}%\n", "cyan"), flush=True)
+    print(colored(f"Remediated: {audit_res.remediated_count} | Regressed: {audit_res.regressed_count} | Inconclusive: {audit_res.inconclusive_count} | Fix Rate: {audit_res.fix_rate}%\n", "cyan"), flush=True)
 
     rows = []
     for r in audit_res.results:
-        st_color = "green" if r["status"] == "REMEDIATED" else "red"
+        if r["status"] in ["CONFIRMED_FIX", "REMEDIATED"]:
+            st_color = "green"
+        elif r["status"] in ["STILL_VULNERABLE", "REGRESSED"]:
+            st_color = "red"
+        elif r["status"] == "INCONCLUSIVE":
+            st_color = "yellow"
+        else:
+            st_color = "magenta"
         rows.append([
             r["finding_id"],
             colored(r["status"], st_color, attrs=["bold"]),
@@ -260,7 +267,8 @@ def interactive_menu():
         elif choice == "4":
             rep = input("\nEnter path to previous report JSON (e.g. reports/vapt_report_...json): ").strip()
             if rep:
-                asyncio.run(run_regression(rep))
+                override = input("Enter target override URL (press Enter to keep original target): ").strip()
+                asyncio.run(run_regression(rep, target_override=override if override else None))
                 input(colored("\nRegression complete. Press Enter to return to menu...", "cyan"))
         elif choice == "5":
             print_help_manual()

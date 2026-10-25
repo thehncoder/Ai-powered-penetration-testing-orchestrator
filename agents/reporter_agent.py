@@ -162,13 +162,46 @@ class ReporterAgent:
             lines.append("")
 
         if report.threat_model and isinstance(report.threat_model, dict) and report.threat_model.get("threats"):
-            lines.append("## 🏛️ Microsoft STRIDE Threat Modeling Architecture")
+            lines.append("## 🏛️ Architectural Threat Modeling (STRIDE & Assets)")
             lines.append(f"**Total Architectural Threats Mapped**: {report.threat_model.get('total_threats', 0)}\n")
+
+            # Assets
+            assets = report.threat_model.get("assets", [])
+            if assets:
+                lines.append("### 📦 Key Architectural Assets")
+                for a in assets:
+                    lines.append(f"- **{a.get('name')}** (`{a.get('asset_id')}`): Type: `{a.get('asset_type')}` | Classification: `{a.get('classification')}`")
+                    lines.append(f"  - *Description*: {a.get('description')}")
+                lines.append("")
+
+            # Trust Boundaries
+            boundaries = report.threat_model.get("trust_boundaries", [])
+            if boundaries:
+                lines.append("### 🛡️ Trust Boundaries")
+                for tb in boundaries:
+                    lines.append(f"- **{tb.get('name')}** (`{tb.get('boundary_id')}`): `{tb.get('from_zone')}` ➔ `{tb.get('to_zone')}`")
+                    lines.append(f"  - *Controls*: {tb.get('enforced_controls')}")
+                lines.append("")
+
+            # Data Flows
+            flows = report.threat_model.get("data_flows", [])
+            if flows:
+                lines.append("### 🔄 Active Data Flows")
+                for df in flows:
+                    lines.append(f"- **{df.get('name')}** (`{df.get('flow_id')}`): `{df.get('source')}` ➔ `{df.get('destination')}` via `{df.get('protocol')}` (Boundary: `{df.get('crosses_trust_boundary')}`)")
+                lines.append("")
+
+            lines.append("### ⚠️ Mapped STRIDE Threats")
             for t in report.threat_model.get("threats", []):
-                lines.append(f"### [{t.get('risk_level', 'HIGH')}] {t.get('category')}: {t.get('title')} ({t.get('threat_id')})")
+                lines.append(f"#### [{t.get('risk_level', 'HIGH')}] {t.get('category')}: {t.get('title')} ({t.get('threat_id')})")
                 lines.append(f"- **Description**: {t.get('description')}")
+                lines.append(f"- **Asset at Risk**: `{t.get('asset_at_risk', 'General')}` | **Boundary**: `{t.get('traversed_trust_boundary', 'Perimeter')}` | **Data Flow**: `{t.get('associated_data_flow', 'HTTP')}`")
+                lines.append(f"- **Risk Rationale**: {t.get('risk_rationale', 'Elevated architectural exposure.')}")
                 lines.append(f"- **Affected Components**: `{', '.join(t.get('affected_components', []))}`")
                 lines.append(f"- **Defensive Mitigation**: {t.get('mitigation_strategy')}")
+                if t.get("mitigations"):
+                    for m in t.get("mitigations", []):
+                        lines.append(f"  - {m}")
                 lines.append(f"- **OWASP Mapping**: `{t.get('owasp_mapping')}` | **CWE**: `{t.get('cwe_id')}`\n")
             lines.append("---\n")
 
@@ -341,6 +374,9 @@ class ReporterAgent:
                 risk = str(t.get("risk_level", "HIGH")).upper()
                 desc = html.escape(str(t.get("description", "")))
                 mitig = html.escape(str(t.get("mitigation_strategy", "")))
+                rationale = html.escape(str(t.get("risk_rationale", "")))
+                asset_tag = html.escape(str(t.get("asset_at_risk", "")))
+                tb_tag = html.escape(str(t.get("traversed_trust_boundary", "")))
                 comps = html.escape(", ".join(t.get("affected_components", [])[:3]))
                 risk_color = "#ef4444" if risk == "CRITICAL" else ("#f97316" if risk == "HIGH" else "#eab308")
 
@@ -352,7 +388,8 @@ class ReporterAgent:
                     <strong style="color: #fff; font-size: 14px;">{title}</strong>
                   </div>
                   <p style="font-size: 13px; color: #cbd5e1; margin: 6px 0;">{desc}</p>
-                  <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;"><strong>Surfaces:</strong> <code>{comps}</code></div>
+                  <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;"><strong>Asset:</strong> <code>{asset_tag}</code> | <strong>Boundary:</strong> <code>{tb_tag}</code></div>
+                  <div style="font-size: 12px; color: #cbd5e1; margin-bottom: 4px; background: rgba(15,23,42,0.6); padding: 4px 8px; border-radius: 4px;"><strong>Risk Rationale:</strong> {rationale}</div>
                   <div style="font-size: 12px; color: #34d399;"><strong>Mitigation:</strong> {mitig}</div>
                 </div>
                 """
